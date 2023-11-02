@@ -2,17 +2,15 @@
 
 Ex: escreva("Olá, Mundo!")
 
-Saida: ----------
-
+Saida: 
+----------
 Olá, Mundo!
-
 ----------"""
 
-def escreva(msg):
-    tam=len(msg)+4
-    print("~"*tam)    
-    print(f"  {msg}")
-    print("~"*tam)
+#Definindo uma função que irá receber um texto ao ser chamada e efeitos cosmeticos de acordo com o tamanho da frase
+def escreva(EscrevaUmTextoAqui):
+    print("-"*len(EscrevaUmTextoAqui))
+    print(EscrevaUmTextoAqui)
+    print("-"*len(EscrevaUmTextoAqui))
 
-escreva("Alexa soltou um pum bem gostoso.")
-escreva("Tem cheiro de flores")
+escreva("Alexa ganhou um presente!")
