@@ -12,10 +12,11 @@
 
 Adicione tambem as docstrings da função."""
 
+#Função
 def notas(*n,sit=True):
     
     #Dicionario
-    nota={"Quantidade de notas":[],"Maior Nota":[],"Menor Nota":[],"Media de notas":[],"Situação":[]}
+    nota={"Quantidade de notas":[],"Maior Nota":[],"Menor Nota":[],"Media de notas":[]}
     
     #Indentificando a quantidade de notas inseridas como metodos
     quantNotas=len(n)
@@ -32,16 +33,16 @@ def notas(*n,sit=True):
     nota["Media de notas"].append(mediaNotas)
     print(f"Media de notas: {mediaNotas}")
 
+    #Caso o metodo sit seja True, iremos criar mais uma chave no dicionario que irá conter a situação do aluno de acordo com a media de notas
     if sit:
         if mediaNotas<5.0:
-            nota["Situação"].append("REPROVADO")            
+            nota["Situação"]="REPROVADO"            
         elif mediaNotas > 5.0 and mediaNotas <=6.9:            
-            nota["Situação"].append("RECUPERAÇÃO")
+            nota["Situação"]="RECUPERAÇÃO"
         else:            
-            nota["Situação"].append("APROVADO")
-            
-    
+            nota["Situação"]="APROVADO"
     
     return nota
 
-print(notas(2.5,7.9,10,2.1,sit=False))
+#Chamando e imprimindo a função
+print(notas(2.5,7.9,10,2.1,sit=True))
