@@ -40,11 +40,34 @@ def linhas(quant=30):
     """    
     return "*" *quant
 
-
 #Função que irá centralizar um texto e inserir linhas acima e abaixo do mesmo
 def cabecalho(texto,cent=0):
     resultado = f"{linhas(len(texto))}\n{texto.center(cent)}\n{linhas(len(texto))}"    
-    print( resultado)
+    print(resultado)
 
-
+#Função que irá exibir os tipos primitivos de um valor inserido como parametro
+def tipoPrimitivo(v):
+    cabecalho(cor(f"Tipo primitivo da palavra '{v}'"),58)
+    
+    #Se o valor inserido como parametro for um numero, a variavel que este valor está armazenada será uma variavel int
+    if v.isnumeric():
+        tipo=int(v)
+    
+    #Se o valor inserido como parametro for uma string, a variavel que este valor está armazenada será uma variavel str
+    elif v.isalpha():
+        tipo=str(v)
+        
+    #Se o valor inserido com parametro for somente espaços, iremos considera-lo como str
+    elif v.isspace():
+        tipo=str(v)
+        
+    print(cor(f"Tipo: {type(tipo)}",36)) #Tipo primitivo
+    print(cor(f"Contem somente espaços em branco: {v.isspace()}",31)) #Somente espaços?
+    print(cor(f"É um valor numerico: {v.isnumeric()}",32)) #Valor numerico?
+    print(cor(f"São palavras: {v.isalpha()}",33)) #String?
+    print(cor(f"SOMENTE MAIUSCULO: {v.isupper()}",34)) #SOMENTE MAIUSCULO?
+    print(cor(f"somente minusculo: {v.islower()}",35)) #somente minusculo?
+    print(cor(f"Primeira letra é maiusculo: {v.istitle()}",36)) #Primeira letra maiusculo?
+    print(cor(f"Contem letras e/ou numeros: {v.isalnum()}",37)) #Contem letras e ou numeros?
+    print()
     
