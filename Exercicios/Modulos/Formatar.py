@@ -44,4 +44,7 @@ def linhas(quant=30):
 #Função que irá centralizar um texto e inserir linhas acima e abaixo do mesmo
 def cabecalho(texto,cent=0):
     resultado = f"{linhas(len(texto))}\n{texto.center(cent)}\n{linhas(len(texto))}"    
-    return resultado
+    print( resultado)
+
+
+    
