@@ -1,24 +1,60 @@
 """Desafio 06: Crie um algoritmo que leia um numero e mostre o seu dobro, triplo e raiz quadrada."""
 
-from math import sqrt
+from Modulos.Formatar import cor,cabecalho
+from Modulos.Matematica import dobro,triplo,raizQuadrada
 
-color1 = "\033[1;32m"
-color2 = "\033[1;33m"
-color3 = "\033[1;34m"
-colorEnd = "\033[m"
+#Limpando o terminal a cada execução do programa
+import os
+os.system("cls")
 
-numeros = []
+#Chave para controlarmos o input do primeiro e de novos numeros
+chave=True
 
-while True :
-    numeros.append ( int ( input ( f"Digite o {len ( numeros ) + 1}º numero: " ) ) )
-    c = input ( "Deseja continuar? [S/N]" )
-
-    if c in "Nn" :
-        break
-
-for i, v in enumerate ( numeros ) :
-    print ( "-=" * 50 )
-    print ( f"{color1}O dobro do numero {v} é igual a {v * 2}." )
-    print ( f"{color2}O triplo do numero {v} é igual a {v * 3}." )
-    print ( f"{color3}A raiz quadrada do numero {v} é igual a {sqrt ( v ):.2f}."
-            f"{colorEnd}" )
+#Programa principal
+cabecalho(cor("Bem vindo a aula de matematica da Prof(a) Alexa!",35))
+while True:
+    if chave: #Se a chave de controle for True, poderemos inserir um novo numero para verificação
+        while True: #Tratamento de erros       
+            try:
+                num=int(input(cor("Digite um numero: ")))
+                chave=False
+                break
+            except KeyboardInterrupt: #Caso o usuario tenha cancelado o programa (CTRL+C)
+                print(cor("Usuario cancelou a execução do programa!",31))
+                quit()
+            except ValueError: #Caso o usuario tenha digitado letras
+                print(cor("Erro! Digite somente numeros!",31))
+    
+    #Menu de escolha
+    while True: #Tratamento de erros
+        try:
+            c=int((input(f"[1] Verificar o dobro do numero {cor(num)}\n"
+                        f"[2] Verificar o triplo do numero {cor(num)}\n"
+                        f"[3] Verificar a raiz quadrada do numero {cor(num)}\n"
+                        "[4] Verificar outro numero\n"
+                        "[5] Sair do programa\n"
+                        "Escolha: ")))
+            if c in [1,2,3,4,5]: #Se o usuario escolher uma das opções acima, o programa irá continuar
+                break
+            else: #Caso seja inserido qualquer valor acima de 5, iremos exibir um erro
+                print(cor("Erro! Digite somente as escolhas abaixo! 1-5",31))                
+        except ValueError: #Caso seja inserido qualquer valor alem de numeros
+            print(cor("Erro! Digite numeros!",31)) 
+    
+    #Respostas das escolhas
+    if c == 1: #Dobro        
+        numDobro=dobro(num) #Armazenando resultado de uma função (dobro) em uma variavel       
+        cabecalho(f"O dobro do numero {cor(num)} é {cor(numDobro)}.")
+    elif c == 2: #Triplo
+        numTriplo=triplo(num) #Armazenando resultado de uma função (triplo) em uma variavel
+        cabecalho(f"O triplo do numero {cor(num)} é {cor(numTriplo)}.")
+    elif c == 3: #Raiz Quadrada
+        numRaizQuadrada=raizQuadrada(num) #Armazenando resultado de uma função (raiz quadrada) em uma variavel
+        cabecalho(f"A raiz quadrada do numero {cor(num)} é {cor(numRaizQuadrada)}.")
+    elif c == 4: #Verificar novo numero
+        chave=True 
+    elif c == 5: #Sair do programa
+        print(cor("Obrigado e volte sempre!",35))
+        break 
+    
+           

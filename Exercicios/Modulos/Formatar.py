@@ -40,9 +40,19 @@ def linhas(quant=30):
     """    
     return "*" *quant
 
-#Função que irá centralizar um texto e inserir linhas acima e abaixo do mesmo
-def cabecalho(texto,cent=0):
-    resultado = f"{linhas(len(texto))}\n{texto.center(cent)}\n{linhas(len(texto))}"    
+#Função que irá centralizar um texto e inserir caracteres cosmeticos acima e abaixo do mesmo
+def cabecalho(texto,c="*",quantC=60,cent=65):
+    """
+    Para centralizar um texto usando esta função, não será preciso usar o 'print()'!
+    
+    1º Parametro: O Texto a ser centralizado.
+    2º Parametro: Caractere especial a ser posicionado acima e abaixo do texto (padrão = '*')
+    3º Parametro: A quantidade de caracteres especiais a ser posicionado (padrão = 60)
+    4º Parametro: Em quanto o texto será centralizado (padrão = 65)
+    
+    """
+    
+    resultado = f"{c*quantC}\n {texto.center(cent, ' ')} \n{c*quantC}"    
     print(resultado)
 
 #Função que irá exibir os tipos primitivos de um valor inserido como parametro
