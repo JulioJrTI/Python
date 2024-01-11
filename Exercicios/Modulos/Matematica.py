@@ -1,5 +1,6 @@
 import math
 from Modulos.Formatar import cabecalho,cor
+from tabulate import tabulate
 
 #Função que irá somar dois numeros e imprimir o resultado final
 def somarNumeros(n1=0,n2=0):
@@ -52,6 +53,10 @@ def conversaoMetros(metros=0):
         cabecalho(f"{metros}(m) é igual a {pCentimetros}(cm) e {pMilimetros}(mm).","-",50,0)
         
 def tabuada(num=0):
-    for n in range(1,11):
-        t=num*n        
-        print(f"{num} x {n} = {t}")
+    tabela = []
+    for n in range(1, 11):
+        t = num * n
+        tabela.append([num, "x", n, "=", t])
+
+    headers = ["Número", "", "Multiplicador", "", "Resultado"]
+    print(tabulate(tabela, headers=headers, tablefmt="pretty"))

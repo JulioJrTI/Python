@@ -14,28 +14,36 @@ while True:
     #Tratamento de erros
     while True:
         try:
+            #Solicitando um valor ao usuario
             num=int(input("Digite um numero: "))
             break
+        #Caso o usuario tenha inserido um valor invalido
         except ValueError:
-            print("Erro! Por favor digite somente numeros!")
+            print(cor("Erro! Por favor digite somente numeros!",31))
+        #Caso o usuario tenha cancelado o programa
         except KeyboardInterrupt:
-            print("O usuario cancelou o programa.")            
+            print(cor("O usuario cancelou o programa.",31) )           
 
     #Chamando uma função de tabuada e imprimindo os resultados na mesma
-    print(f"Tabuada do {num}:")
+    cabecalho(cor(f"Tabuada do {num}:"),"*",45,53)
     tabuada(num)
 
     #Tratamento de erro
     while True:    
-        c=str(input("Deseja continuar? [S/N]")).upper()
+        #Iremos permitir ao usuario continuar o programa escolhendo novo numeros para tabuada
+        c=str(input("\nDeseja continuar? [S/N]")).upper()
         
+        #Caso o osuario tenha escolhido S ou N
         if c in ["S","N"]:
             break
+        
+        #Caso o usuario tenha inserido algum valor invalido
         else:
-            print("Erro! Digite somente S ou N como escolhas!")
+            print(cor("Erro! Digite somente S ou N como escolhas!",31))
     
+    #Saindo do programa
     if c in "Nn":
-        print("Obrigado e volte sempre!")
+        print(cor("Obrigado e volte sempre!",35))
         break
 
 
