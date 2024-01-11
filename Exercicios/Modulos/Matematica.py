@@ -1,4 +1,5 @@
 import math
+from Modulos.Formatar import cabecalho,cor
 
 #Função que irá somar dois numeros e imprimir o resultado final
 def somarNumeros(n1=0,n2=0):
@@ -44,3 +45,13 @@ def raizQuadrada(n=0):
 def mediaNumeros(n1,n2):
     media=(n1+n2)/2
     return media
+
+def conversaoMetros(metros=0):
+        pCentimetros=metros*100
+        pMilimetros=metros*1000
+        cabecalho(f"{metros}(m) é igual a {pCentimetros}(cm) e {pMilimetros}(mm).","-",50,0)
+        
+def tabuada(num=0):
+    for n in range(1,11):
+        t=num*n        
+        print(f"{num} x {n} = {t}")
