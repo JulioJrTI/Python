@@ -1,29 +1,46 @@
-"""Desafio 13: Faça um algoritmo que leia o salário de um funcionário
-e mostre seu novo salário, com 15% de aumento."""
+"""Desafio 13: Faça um algoritmo que leia o salário de um funcionário e mostre seu novo salário, com 15% de aumento."""
 
-color = "\033[1;32m"
-colorEnd = "\033[m"
+from Modulos.Formatar import cor,cabecalho
+from Modulos.Matematica import aumento
 
-funcionarioNome = []
-funcionarioSalario = []
-aumento = 15
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-while True :
-    print ( "=-" * 50 )
-    funcionario = str ( input ( "Digite o nome do funcionario: " ) )
-    funcionarioNome.append ( funcionario )
+#Greetings!
+cabecalho(cor("Bem vindo ao calculador de salarios da diretora Alexa!",35),cent=68)
 
-    salario = float ( input ( "Digite o salario deste funcionario: R$" ) )
-    funcionarioSalario.append ( salario )
-
-    c = input ( "Deseja continuar? [S/N]" )
-
-    if c in "Nn" :
+#Tratamento de erro
+while True:
+    try:
+        #Solicitando o nome do funcionario
+        nomeFuncionario=str(input("Qual é o nome do(a) funcionario(a): "))
+        if nomeFuncionario.isalpha():
+            break
+        else:
+            print(cor("ERRO! Por favor digite o nome do funcionario!",31))
+    except KeyboardInterrupt:
+        print(cor("\nUsuario encerrou o programa",31))
+        quit()
+    
+#Tratamento de erro
+while True:
+    try:
+        #Solicitando o salario atual do funcionario
+        salarioAtual=float(input("Digite o salario atual do funcionario: R$"))
         break
+    except ValueError:
+        print(cor("Erro! Por favor digite um valor monetario valido para o salario (Exemplo 1500.00), lembre-se de usar ponto como separador!",31))
+    except KeyboardInterrupt:
+        print(cor("\nUsuario encerrou o programa",31))
+        quit()
 
-for nome, salario in zip ( funcionarioNome, funcionarioSalario ) :  # Combinando as duas listas em fileiras verticais
-    print ( f"Nome: {nome}" )
-    print ( f"Salario: R${salario:.2f}" )
-    novoSalario = salario + (salario * aumento / 100)
-    print ( f"{color}Seu salario sofreu um aumento de 15%, segue novo salario: R${novoSalario:.2f}.{colorEnd}" )
-    print ( "=-" * 30 )
+#O valor abaixo será o % de aumento, ou seja, em quantos % iremos aumentar o salario do funcionario
+aumentoPercent=15
+
+#Usando função para calcularmos o novo salario
+novoSalario = aumento(salarioAtual,aumentoPercent)
+
+#Imprimindo resultado
+cabecalho(cor(f"O salario do funcionario {nomeFuncionario} que antes era R${salarioAtual:.2f}, agora com 15% de aumento irá ficar R${novoSalario:.2f}",35),cent=0,quantC=100)
+

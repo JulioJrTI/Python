@@ -60,3 +60,8 @@ def tabuada(num=0):
 
     headers = ["Número", "", "Multiplicador", "", "Resultado"]
     print(tabulate(tabela, headers=headers, tablefmt="pretty"))
+    
+#Função de aumento de valor
+def aumento(valor=0,aumento=0):
+    aumentoValor=(valor+(valor*aumento/100))
+    return aumentoValor
