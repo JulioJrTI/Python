@@ -63,5 +63,12 @@ def tabuada(num=0):
     
 #Função de aumento de valor
 def aumento(valor=0,aumento=0):
+    """
+    Essa função irá retornar um novo valor que será calculado junto a um percentual anexado com o parametro!
+    1º parametro (valor) = Valor que irá ser calculado, padrão = 0
+    2º parametro (aumento) = Percentual de aumento, padrão = 0
+    
+    """
+    
     aumentoValor=(valor+(valor*aumento/100))
     return aumentoValor
