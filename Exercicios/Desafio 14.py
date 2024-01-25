@@ -1,23 +1,59 @@
 """Desafio 14: Escreva um programa que converta uma temperatura digita em ºC e converta para ºF."""
 
-color1 = "\033[1;32m"
-color2 = "\033[1;33m"
-color3 = "\033[1;34m"
-colorEnd = "\033[m"
+#Usando algumas funções de formatação
+from Modulos.Formatar import cabecalho,cor
 
-dias = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta"]
-diasTempC = []
-diasTempF = []
-print ( f"{color3}Bem vindo ao Clima Tempo da Alexa!{colorEnd}" )
-for dia in dias :  # Iremos exibir o dia na ordem seguindo a lista de dias
-    print ( f"{color1}Digite a temperatura para {dia}{colorEnd}" )
-    tempC = int ( input ( "Digite a temperatura em Cº: " ) )
-    diasTempC.append ( tempC )
-    tempF = (tempC * 9 / 5) + 32
-    diasTempF.append ( tempF )
-    print ( f"{tempC}ºC foi convertido para {tempF}ºF" )
-    print ( "=-" * 30 )
-for dia, tempC, tempF in zip ( dias, diasTempC,
-                               diasTempF ) :  # Iremos exibir o dia, a temperatura em C e F na ordem usando o comando zip
-    print (
-        f"Na {color1}{dia}{colorEnd} teremos {color2}{tempC}ºC{colorEnd} ou {color3}{tempF}ºF{colorEnd} de temperatura." )
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
+
+#Greetings!
+cabecalho(cor("Bem vindo ao conversor de temperaturas da Prof(a) Alexa!",35))
+
+#Função que irá converter um valor de temperatura ºC para ºF
+def conversaoF(temp=0):
+    #Se não inserirmos um valor como parametro, iremos solicitar o mesmo ao usuario
+    if temp==0:
+        while True:
+            try:
+                #Solicitando um valor de temperatura ºC ao usuario
+                temp=int(input("Digite uma temperatura em ºC: "))
+                break            
+            except ValueError:
+                print(cor("Erro! Por favor digite um valor valido (Por exemplo 32, para 32ºC)",31))
+            except KeyboardInterrupt:
+                print(cor("\nUsuario encerrou o programa...",31))
+                quit()
+    CpF = temp*9/5+32
+    return f"{temp}ºC é igual a {CpF}ºF"
+
+#Programa principal
+while True:
+    #Tratamento de erro
+    while True:
+        try:
+            #Solicitando um valor de temperatura ºC ao usuario
+            t=int(input("Digite uma temp: "))
+            break        
+        except ValueError:
+            print(cor("Erro! Por favor digite um valor valido (Por exemplo 32, para 32ºC)",31))
+        except KeyboardInterrupt:
+            print(cor("\nUsuario encerrou o programa...",31))
+            quit()
+    
+    #Imprimindo o resultado
+    cabecalho(cor(conversaoF(t),35),cent=0,quantC=25)
+    
+    #Tratamento de erro
+    while True:
+        #Escolha do usuario se deseja ou não continuar o programa
+        c=str(input("Deseja continuar? [S/N]")).upper()[0]
+        
+        if c in ["S","N"]:
+            break
+        else:
+            print(cor("Erro! Por favor escolha S (para continuar o programa) ou N (para sairmos do programa)!",31))
+    
+    if c in "Nn":
+        print(cor("Obrigado e volte sempre!",35))
+        break

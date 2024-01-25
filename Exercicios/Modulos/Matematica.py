@@ -72,3 +72,14 @@ def aumento(valor=0,aumento=0):
     
     aumentoValor=(valor+(valor*aumento/100))
     return aumentoValor
+
+#Função que irá converter uma temperadura ºC para ºF
+def conversaoF(tempC=0):
+    """
+    Função simples que irá converter uma temperadura ºC para ºF
+    Como parametro, iremos inserir um valor de temperatura ºC (padrão = 0)
+    
+    """
+    
+    convF=(tempC*9/5+32)
+    return convF
