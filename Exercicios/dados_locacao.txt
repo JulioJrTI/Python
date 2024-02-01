@@ -1,4 +1,0 @@
-Nome do cliente: ['"\'Alexa\'"', "'Candice'", 'Prince']
-Quantidade de dias alugados: ["'4'", '5', 2]
-Quantidade de KMs percorridos: ["'6.0'", '9.0', 5.0]
-Valor total a pagar: ["'240.9'", '301.35', 120.75]
