@@ -80,4 +80,23 @@ def tipoPrimitivo(v):
     print(cor(f"Primeira letra é maiusculo: {v.istitle()}",36)) #Primeira letra maiusculo?
     print(cor(f"Contem letras e/ou numeros: {v.isalnum()}",37)) #Contem letras e ou numeros?
     print()
+
+#Função que irá exibir emojis ao ser chamado    
+def emotes(tipo=1):
+    """
+    Valores de emoji:
+    1 = 😊
+    2 = ❤️
+    3 = 😎
+    
+    Função será atualizada com novos emojis!
+        
+    """    
+    
+    if tipo == 1:
+        return "😊"
+    elif tipo == 2:
+        return "❤️"
+    elif tipo == 3:
+        return "😎"
     
