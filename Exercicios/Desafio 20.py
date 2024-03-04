@@ -1,35 +1,39 @@
 """Desafio 20: O mesmo professor do desafio anterior que sortear a ordem de apresentação de trabalhos dos alunos. Faça um programa que leia o nome dos quatro alunos e mostre a ordem sorteada."""
 
-import random
+#Usando de funções para a formatação do codigo
+from Modulos.Formatar import cabecalho,cor
 
-enfeite="=-"*3
-color1="\033[1;32m"
-color2="\033[1;34m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-alunos=[]
-cont=0
-pergunta=True
+#Greetings!
+cabecalho(cor("Bem vindo a classe da professora Alexa!",35))
 
-print(enfeite,f"{color1}Bem vindo ao sorteador de listas de alunas da Alexa 2.0!{colorEnd}",enfeite)
-while cont < 4:    
-    if pergunta:
-        aluno=str(input(f"{color1}Digite o nome da {cont+1}º aluna: {colorEnd}"))
+#Lista de alunos
+alunos = list()
+
+#Solicitando ao usuario os nomes dos alunos e adicionando os mesmos a lista acima
+while True: 
+    aluno=str(input(f"Digite o nome do {len(alunos)+1}º aluno: (Ou digite 0 para sair)"))
+    
+    if aluno.isalpha():
         alunos.append(aluno)
-        cont+=1
-        random.shuffle(alunos)        
+    elif aluno == "0":
+        break
+    else:
+        print(cor("Erro! Digite somente nomes! (Exemplo: Alexa)",31))
 
-    if cont==4:
-        pergunta=False
-        c=int(input(f"Deseja efetuar alguma alteração?\n1)Mudar alunas\n2)Sair do programa e mostra lista\n"))
-        if c==1:            
-            alunos.clear()
-            cont=0
-            pergunta=True            
-        elif c==2:
-            break
+#Usando da biblioteca random para embaralhar a lista acima
+import random
+random.shuffle(alunos)
 
-print(enfeite)
-print(f"Segue ordem de alunas sorteadas: ")
-for ordem,nome in enumerate(alunos):
-    print(f"{color1}{ordem+1}º:{colorEnd} {color2}{nome}{colorEnd}")
+#Efeito cosmetico de loading
+from time import sleep
+print("\nSorteando alunos...")
+sleep(3)
+
+#Imprimindo a lista em ordem aleatoria
+print(cor("\nSegue lista de alunos sorteados:",35))
+for i, a in enumerate(alunos):
+    print(f"{i+1}: {a}")
