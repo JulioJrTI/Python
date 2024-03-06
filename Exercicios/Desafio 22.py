@@ -1,48 +1,43 @@
-"""Desafio 22: Crie um programa que leia o nome completo de uma pessoa e mostre:
+"""
+Desafio 22: Crie um programa que leia o nome completo de uma pessoa e mostre:
 O nome com todas as letras maiúsculas.
 O nome com todas as letras minúsculas.
 Quantas letras ao todo (sem considerar espaços).
-Quantas letras tem o primeiro nome."""
+Quantas letras tem o primeiro nome.
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-color3="\033[1;34m"
-color4="\033[1;35m"
-colorEnd="\033[m"
-enfeite="=-"*10
+"""
 
-chave=True
+#Usando de funções para a formatação
+from Modulos.Formatar import cabecalho,cor
 
-print(f"{color1}Bem vindo ao contador de letras da Alexa!")
-print(enfeite)
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
+
+#Greetings!
+cabecalho(cor("Bem vindo ao analisador de nomes da Prof(a) Alexa!",35))
+
+#Tratamento de erros
 while True:
-    if chave==True:
-        nome=input(f"Digite seu nome: {colorEnd}")
-        chave=False
+    #Solicitando o nome completo de uma pessoa ao usuario
+    nome=str(input("Digite seu nome completo: "))
     
-    maiu=nome.upper()
-    print(f"Seu nome em maiu é: {color1}{maiu}{colorEnd}")
-        
-    minu=nome.lower()
-    print(f"Seu nome em minu é: {color2}{minu}{colorEnd}")
-
-    semEsp=nome.replace(" ","")
-    quantLetras=len(semEsp)
-    print(f"Seu nome completo tem {color3}{quantLetras}{colorEnd} letras (Sem espaços)")
-
-    primeiroNome=nome.split()
-    print(f"Seu primeiro nome tem {color4}{len(primeiroNome[0])}{colorEnd} letras.")
-    print(enfeite)
-    
-    c=str(input("Deseja efetuar nova verificação? [S/N]"))
-
-    if c in "Ss":
-        chave=True
-    elif c in "Nn":
-        print(f"{color1}Obrigado e tenha um bom dia!{colorEnd}")
+    if nome.replace(" ","").isalpha():
         break
+    else:
+        print(cor("Erro! Digite somente palavras!",31))
 
+#Imprimindo o nome inserido acima em MAIUSCULO
+cabecalho(cor(f"Seu nome em maiusculo é '{nome.upper()}'",34),cent=0,quantC=50)
 
+#Imprimindo o nome inserido acima em minusculo
+cabecalho(cor(f"Seu nome em minusculo é '{nome.lower()}'",35),cent=0,quantC=50)
 
+#Imprimindo a quantidade de caracteres no nome completo (sem espaços)
+cabecalho(cor(f"Seu nome possui {len(nome.replace(" ",""))} caracteres.",36),cent=0,quantC=50)
 
+#Dividindo o nome completo
+nome = nome.split()
 
+#Imprimindo a quantidade de caracteres no primeiro nome
+cabecalho(cor(f"Seu primeiro nome possui {len(nome[0])} caracteres.",37),cent=0,quantC=50)
