@@ -1,26 +1,33 @@
 """Desafio 25: Crie um programa que leia o nome de uma pessoa e diga se ela tem "Silva" no nome."""
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-nomeCompleto=[]
+from Modulos.formatar import cor,cabecalho
 
-print(f"{color1}Bem vindo ao analisador de nomes da Alexa 2.0!{colorEnd}")
+#Greetings!
+cabecalho(cor("Bem vindo ao analizador de nomes da prof(a) Alexa Blessings!",35))
+
 while True:
-    nome=str(input("Digite seu nome completo: (Ou digite 0 para sair) ")).lower()
-    nomeSplit=nome.split()
-    nomeCompleto.extend(nomeSplit) #Os items serão adicionado a lista de modo individual
-
-    if nome=="0":
-        print(f"{color1}Obrigado e tenha um bom dia!{colorEnd}")
+    #Solicitando o nome completo de uma pessoa
+    nomePessoa = str(input("Digite o nome completo de seu aluno(a): ")).lower()
+    
+    if nomePessoa.isalpha() or " " in nomePessoa:
         break
-    
-    if "silva" in nomeCompleto:
-        print(f"{color1}Seu nome tem 'Silva'.{colorEnd}")
-        nomeCompleto.clear()
     else:
-        print(f"{color2}Seu nome não tem 'Silva'.{colorEnd}")
-        nomeCompleto.clear()
-
+        print(cor("Erro! Não digite valores alem de palavras!\n",31))
     
+#Criando uma função que irá conter uma palavra a ser identificar e uma frase (como o nome completo de uma pessoa) como parametros
+def identificarPalavra(palavra="",frase=""):
+    #Fatiando as palavras inseridas acima
+    nome_split = frase.split()
+
+    #Se uma palavra especifica for encontrado no nome completo de uma pessoa, iremos exibir uma confirmação
+    if palavra in nome_split:
+        print(cor(f"\nSeu nome completo contem a palavra '{palavra}'",35))
+    else:
+        print(cor(f"\nSeu nome completo não contem a palavra '{palavra}'",31))    
+    
+#Chamando da função criada acima para identificarmos a palavra 'silva' em um nome completo    
+identificarPalavra("silva",nomePessoa)
