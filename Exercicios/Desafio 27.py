@@ -1,40 +1,29 @@
 """Desafio 27: Faça um programa que leia o nome completo de uma pessoa, mostrando em seguida o primeiro e o ultimo nome separadamente.
-
 Ex: Ana Maria de Souza
 Primeiro = Ana
 Último = Souza"""
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-color3="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-nomeLista=[]
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cor,cabecalho
 
-chave=True
-chave2=True
+#Greetings!
+cabecalho((cor("Bem vindo ao analizador de nomes da Prof(a) Alexa!",35)))
 
-print(f"{color1}Bem vindo ao separador de nomes da Alexa!{colorEnd}")
-while True:
-    if chave==True:
-        nome=str(input("Digite seu nome completo: "))
-        nomeLista.extend(nome.split())
+#Solicitando o nome completo de uma pessoa
+nomeCompleto = str (input ("Digite seu nome completo: "))
 
-        print(f"{color1}Nome completo = {nome}")
-        print(f"{color2}Primeiro = {nomeLista[0]} ")
-        print(f"{color3}Ultimo = {nomeLista[-1]}{colorEnd}")
-        chave=False
-        chave2=True
+#Separando as palavras inseridas no nome completo
+nome_separado = nomeCompleto.split()
 
-    if chave2==True:
-        c=str(input("Deseja fazer nova verificação? [S/N]"))
+#Imprimindo o nome completo do usuario
+print(f"Nome Completo: {nomeCompleto}.")
 
-        if c in "Ss":
-            nomeLista.clear()
-            chave=True
-            chave2=False
-        elif c in "Nn":
-            print(f"{color1}Obrigado e volte sempre!")
-            break
-        else:
-            print(f"{color3}Input invalido, tente novamente!{colorEnd}")
+#Imprimindo o primeiro nome
+print(f"Primeiro: {nome_separado[0]}")
+
+#Imprimindo o ultimo nome
+print(f"Ultimo: {nome_separado[-1]}")
