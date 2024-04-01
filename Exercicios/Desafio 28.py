@@ -1,45 +1,59 @@
-"""Desafio 28: Escreva um programa que faça o computador "pensar" em um número inteiro entre 0 e 5 e peça para o usuário tentar descobrir qual foi o número escolhido pelo computador.
+"""Desafio 28: Escreva um programa que faça o computador "pensar" 
+em um número inteiro entre 0 e 5 e peça para o usuário tentar descobrir qual foi o número escolhido pelo computador.
 O programa deverá escrever na tela se o usuário venceu ou perdeu."""
 
-from random import randint
-from time import sleep
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-color3="\033[1;31m"
-colorEnd="\033[m"
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
 
-maquinaLista=[]
+#Criando uma função que irá escolher aleatoriamente um valor entre o valores em parametro inseridos como inicio e fim
+def numeros_aleatorios(inicio=0,fim=0):
+    #Iremos usar da função 'randint' do modulo Random para gerarmos numeros aleatorios
+    from random import randint
+    num = randint(inicio,fim)    
+    return num    
 
-print(f"{color1}Bem vindo ao game de adivinhação da Alexa!{colorEnd}")
+#Greetings!
+cabecalho(cor("Bem vindo(a) ao game de adivinhação da Prof(a) Alexa Luzia!",35))
+
+#Programa principal
 while True:    
-    maquina=randint(0,5)
-    maquinaLista.append(maquina)
+    
+    #Tratamento de erros
+    while True:    
+        try:
+            #Jogador
+            jogador=int(input("Digite um numero qualquer entre 0 e 5: "))            
+            
+            if 0 <= jogador <= 5:
+                break
+            else:
+                print(cor("Erro! Digite somente numeros entre 0 e 5!",31))   
+        
+        except ValueError:
+            print(cor("Erro! Digite valores somente valores numericos!",31))
+    
+    #Maquina
+    maquina = numeros_aleatorios(0,5)
 
-    player=int(input("Digite um numero entre 0 e 5: "))
-
-    if player>5:
-        print(f"{color3}Numero invalido, por favor digite um numero entre 0 e 5!{colorEnd}")
-        maquinaLista.clear()
+    #Se o jogador adivinhar o numero escolhido pela maquina, o mesmo ganha
+    if jogador==maquina:
+        print(cor(f"Voce ganhou!\nA maquina escolheu o numero {maquina}",34))
     else:
-        print("A maquina está pensando em um numero...")
-        sleep(2)
-
-        print(f"O player escolheu o numero [{player}].")
-        sleep(2)
-        print(f"A maquina escolheu o numero {maquinaLista}.")
-
-        if player==maquinaLista[0]:
-            print(f"{color1}Vc venceu!{colorEnd}")
-        else:
-            print(f"{color3}Vc perdeu!{colorEnd}")
-
-        c=str(input("Deseja jogar novamente? [S/N]"))
-
-        if c in "Ss":
-            maquinaLista.clear()
-        elif c in "Nn":
-            print(f"{color2}Obrigado e volte sempre!{colorEnd}")
+        print(cor(f"Voce perdeu!\nA maquina escolheu o numero {maquina}",31))
+        
+    #Tratamento de erro
+    while True:    
+        c = str(input("Deseja tentar novamente? [S/N]")).upper()[0]
+        
+        if c in ["S","N"]:
             break
-
-
+        else:
+            print(cor("Erro! Digite somente S para continuar ou N para sair do game!",31)) 
+    
+    if c in "Nn":
+        print(cor("Obrigada por jogar!",35))
+        break
