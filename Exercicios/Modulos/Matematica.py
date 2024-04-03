@@ -83,3 +83,15 @@ def conversaoF(tempC=0):
     
     convF=(tempC*9/5+32)
     return convF
+
+#Função que irá identificar se um novo é PAR ou IMPAR
+def par_impar(num=0):
+    """
+    Função simples que irá retornar uma mensagem ao identificar se o valor inserido com parametro é PAR ou IMPAR
+    Paramentro 'num' = valor integer, como padrão é 0.
+    """
+    
+    if num%2==0:
+        return "Par"
+    else:
+        return "Impar"

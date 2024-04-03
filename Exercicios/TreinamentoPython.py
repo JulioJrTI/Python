@@ -1,3 +1,5 @@
-frase="Metal Gear Solid".upper()
+#Treinamento Python
 
-print(frase)
+from Modulos.matematica import par_impar
+
+print(par_impar(2))
