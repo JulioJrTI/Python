@@ -1,26 +1,42 @@
 """Desafio 30: Crie um programa que leia um número inteiro e mostre na tela se ele é PAR ou IMPAR."""
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-chave=True
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
 
-print(f"{color1}Bem vindo ao analizador de pares e impares da Alexa!{colorEnd}")
-for n in range(chave):
-    while chave:
-        numero=int(input("Digite um numero qualquer: "))
-        chave=False    
+#Criando uma função que irá verificar se um numero é PAR ou IMPAR
+def numero_ParImpar(num=0):
+    resp=[f"\nO numero {num} é PAR!\n",
+          f"\nO numero {num} é IMPAR!\n"]
+    
+    if num%2==0:
+        print(cor(f"{resp[0]}",34))
+    else:
+        print(cor(f"{resp[1]}",35))
 
-        if numero%2==0:
-            print(f"{color1}Numero Par{colorEnd}")
-        else:
-            print(f"{color2}Numero Impar{colorEnd}")
+#Greetings!
+cabecalho(cor("Bem vindo ao analizador de numeros PAR e IMPAR da Prof(a) Alexa Luzia!",35))
 
-        c=str(input("Deseja efetuar nova verificação? [S/N]"))
-
-        if c in "Ss":
-            chave=True
-        elif c in "Nn":
-            print(f"{color1}Obrigado e tenha um bom dia!")
+#Programa principal
+while True:
+    
+    #Tratamento de erro
+    while True:
+        try:
+            numero=int(input("Digite um numero qualquer (ou digite 0 para sair): "))
             break
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos!",31))
+        except KeyboardInterrupt:
+            print(cor("\nUsuario cancelou o programa.",34))
+            quit()
+    
+    if numero==0:
+        print(cor("Obrigado e volte sempre!",35))
+        break
+    else:    
+        #Chamando da função criada para verificarmos se o valor (inserido como parametro) é par ou impar
+        numero_ParImpar(numero)
