@@ -1,5 +1,5 @@
 import math
-from Modulos.Formatar import cabecalho,cor
+from Modulos.formatar import cabecalho,cor
 from tabulate import tabulate
 
 #Função que irá somar dois numeros e imprimir o resultado final
