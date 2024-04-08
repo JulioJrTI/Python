@@ -95,3 +95,19 @@ def par_impar(num=0):
         return "Par"
     else:
         return "Impar"
+    
+#Criando uma função que irá imprimir se o ano (inserido como parametro) é ou não bissexto
+def ano_bissexto(ano=0): 
+    """
+    Função simples que irá calcular se o ano (parametro) é divisivel por 4, caso não seja, o ano não é bissexto, caso seja iremos efetuar uma nova verificação se o ano divisivel por 4 tbm é divisivel por 400 e NÃO é divisivel por 100, caso verdadeiro, o ano é bissexto, caso contrario não é bissexto.
+    
+    ano = ano (4 valores numericos integer)
+    """
+    
+    if ano%4==0:
+        if ano%100!=0 or ano%400==0:
+            print(cor("\nO ano é bissexto",36))
+        else:
+            print(cor("\nO ano não é bissexto",31))
+    else:
+        print(cor("\nO ano não é bissexto",31))

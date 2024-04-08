@@ -1,34 +1,44 @@
 """Desafio 32: Faça um programa que leia um ano qualquer e mostre se ele é bissexto."""
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-anos={"Ano Bi":[],
-      "Ano não bi":[]}
+#Usando de modulos para o com o programa abaixo
+from Modulos.matematica import ano_bissexto
 
-print(f"{color1}Bem vindo ao calculador de anos bissextos da Alexa!{colorEnd}")
-while True:       
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cor,cabecalho
+
+#Greetings
+cabecalho(cor("Bem vindo ao analizador de datas da Prof(a) Alexa!",35))
+
+#Programa principal
+while True:    
     
-    ano=int(input("Digite o ano que deseja verificar: [0 para sair]"))
+    #Tratamento de erros
+    while True:
+        try:
+            ano=int(input("Digite um ano qualquer (Ex.1994): "))
+            break
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos para o ano (Exemplo: 2020)",31))
+        except KeyboardInterrupt:
+            print(cor("\nO usuario cancelou o programa.",34))
+            quit()
+            
+    #Usando de uma função que irá imprimir se o ano (parametro) é ou não bissexto
+    ano_bissexto(ano)
 
-    if ano==0:
-        break    
-
-    if ano%4==0 and (ano%100!=0 or ano%400==0): #Se o ano for bissexto
-        print(f"{color1}O ano {ano} é bissexto{colorEnd}!")
-        anos["Ano Bi"].append(ano) #Iremos adicionar o ano digitado a chave 'Ano Bi'
-        print("-="*5)
-
-    else:
-        print(f"{color2}O ano {ano} não é bissexto{colorEnd}!") #Se o ano não for bissexto
-        anos["Ano não bi"].append(ano) #Iremos adicionar o ano digitado a chave 'Ano não Bi'
-        print("-="*5)
-print("-="*5)
-
-print("Segue lista de anos digitados: ")
-print(f"{color1}Anos bissextos: ",end="")
-print(f"{anos['Ano Bi']}{colorEnd}")
-print("-="*5)
-print(f"{color2}Anos não bissextos: ",end="")
-print(f"{anos['Ano não bi']}{colorEnd}")
+    #Tratamento de erro
+    while True:
+        c = str(input("\nDeseja continuar verificando? [S/N]")).upper()[0]
+        
+        if c not in ["S","N"]:
+            print(cor("Erro! Digite somente S para continuar o programa ou N para sair.",31))
+        else:
+            break
+    #Saindo do programa
+    if c == "N":
+        print(cor("Obrigado e volte sempre!",35))
+        break
