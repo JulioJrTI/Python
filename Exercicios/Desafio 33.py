@@ -14,7 +14,7 @@ cabecalho(cor("Bem vindo ao analizador de numeros maiores e menores da Prof(a) A
 maior=menor=0
 
 #Usando loop FOR para solicitarmos dois numeros ao usuario
-for n in range(2):
+for n in range(3):
     while True:
         try:
             num = int(input(f"Digite o {n+1}º numero: "))
