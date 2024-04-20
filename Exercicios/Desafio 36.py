@@ -1,43 +1,73 @@
-"""Desafio 36: Escreva um programa para aprovar o emprestimo bancario para a compra de uma casa. O programa vai perguntar o valor da casa, o salário do comprador e em quantos anos ele vai pagar.
+"""
+Desafio 36: Escreva um programa para aprovar o emprestimo bancario para a compra de uma casa. 
+O programa vai perguntar o valor da casa, o salário do comprador e em quantos anos ele vai pagar.
+Calcule o valor da prestação mensal, sabendo que ela não pode exceder 30% do salario ou então o emprestimo será negado.
+"""
 
-Calcule o valor da prestação mensal, sabendo que ela não pode exceder 30% do salario ou então o emprestimo será negado."""
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-from time import sleep
+#Greetings!
+cabecalho(cor("Bem vindo ao sistema bancario da Alexa!",35))
 
-print("Bem vindo ao calculador de compras de imoveis da Alexa!")
+#Iremos cadastrar cada pessoa em um dicionario
+cadastroPessoas={"Nome":[],"Valor da Casa":[],"Salario":[],"Anos de parcelamento":[],"Resultado":[]}
+
+#Solicitando o nome do cliente
+nome_cliente = input("Digite seu nome: ")
+cadastroPessoas["Nome"].append(nome_cliente)
+
+#Tratamentos de erros
 while True:
-    casa=float(input("Digite o valor da casa que deseja comprar: R$"))
-    salario=float(input("Digite seu salario atual: R$"))
-    anos=int(input("Digite a quantidade de anos que deseja parcelar sua compra: "))
-
-    programa={"Casa":casa,"Salario":salario,"Anos":anos}    
-
-    prestacao=programa["Casa"]/(programa["Anos"]*12)
-    minimo=programa["Salario"]*30/100    
-    
-    print()
-    print(f"A casa que seja comprar custa R${programa['Casa']:.2f}")
-    sleep(1)
-    print(f"A casa será paga em {programa['Anos']} anos.")
-    sleep(1)
-    print(f"Segue valor da prestaçã o: R${prestacao:.2f}")
-    sleep(1)    
-
-    if prestacao<=minimo:
-        print(f"{color1}Compra aprovada!{colorEnd}")
-        print()
-    else:
-        print(f"{color2}Compra negada!{colorEnd}")
-        print()
-
-    c=str(input("Deseja efetuar nova verificação: [S/N]"))
-
-    if c in "Ss":
-        continue
-    elif c in "Nn":
-        print(f"{color1}Obrigado e volte sempre!{colorEnd}")
+    try:
+        #Solicitando o valor da casa que o usuario deseja comprar
+        valor_casa = float(input(f"Olá{nome_cliente}, Digite o valor da casa que deseja financiar: R$"))
+        cadastroPessoas["Valor da Casa"].append(valor_casa)
         break
+    except ValueError:
+        print(cor("Erro! Digite somente valores monetarios (Ex: 1500,00)",31))
+    except KeyboardInterrupt:
+        print("\nO usuario cancelou o programa")
+
+#Tratamentos de erros
+while True:
+    try:
+        #Solicitando o valor salarial do usuario
+        salario=float(input("Digite seu salario: R$"))
+        cadastroPessoas["Salario"].append(salario)
+        break
+    except ValueError:
+        print(cor("Erro! Digite somente valores monetarios (Ex: 1500,00)",31))
+    except KeyboardInterrupt:
+        print("\nO usuario cancelou o programa")
+        
+#Tratamentos de erros
+while True:
+    try:
+        #Perguntando ao usuario em quantos anos o mesmo irá pagar a casa
+        anos_aPagar = int(input("Em quantos anos deseja parcelar: "))
+        cadastroPessoas["Anos de parcelamento"].append(anos_aPagar)
+        break
+    except ValueError:
+        print(cor("Erro! Digite somente valores numericos (Ex: 5)",31))
+    except KeyboardInterrupt:
+        print("\nO usuario cancelou o programa")
+
+#Para calcularmos a prestação, iremos dividir o valor total da casa com a quantidade de anos a pagar, multiplicado por 12 (meses)
+prestacao = valor_casa/(anos_aPagar*12)
+
+#Para calcularmos o minimo necessario para que seja aprovada o financiamento
+minimo = salario*30/100
+
+#Se o valor da prestação for abaixo ou igual ao minimo de 30% do salario do usuario, a compra é aprovada, caso contrario é negada
+if prestacao <= minimo:
+    resultado="Compra Aprovada!"
+else:
+    resultado="Compra Negada!"
+cadastroPessoas["Resultado"].append(resultado)
+
+print(cadastroPessoas)
