@@ -157,6 +157,7 @@ while True:
         print(cor("Obrigado e volte sempre!",35))
         break
     
+    #Opção invalida, o menu irá ser exibido novamente
     elif c > 4:
         print(cor("Escolha invalida!",31))
         sleep(2)

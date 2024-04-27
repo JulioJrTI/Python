@@ -1,69 +1,82 @@
-"""Desafio 37: Escreva um programa que leia um numero inteiro qualquer e peça para o usuario escolher qual será a base de conversão:
+"""
+Desafio 37: Escreva um programa que leia um numero inteiro qualquer e peça para o usuario escolher qual será a base de conversão:
 [1] para binario
 [2] para octal
-[3] para hexadecimal"""
+[3] para hexadecimal
+"""
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-color3="\033[1;31m"
-colorEnd="\033[m"
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
 
-chave1=True
-numeros={"Numeros inteiros":[],"Numeros binarios":[],"Numeros octadecimais":[],"Numeros hexadecimais":[]}
-
-print(f"{color1}Bem vindo ao conversor de numeros binarios da Alexa!{colorEnd}")
-while True:    
-    if chave1==True:
-        numero=int(input("Digite um numero qualquer: "))
-        numeros["Numeros inteiros"].append(numero)
-        chave1=False
+#Função que irá converter um valor inserido como parametro para bi, octa e hex tbm inserido como parametro
+def conversor_numero(num,base):
+    """
+    Função simples que irá converter um valor numerico (inserido como primeiro parametro) para a base escolhida (bi, oct, hex) no segundo parametro.
     
-    while True:    
-        print(f"{color1}Escolha o metodo de conversão:")
-        c=int(input("[1] para binario\n[2] para octal\n[3] para hexadecimal\n"))
-
-        if c in [1,2,3]:
-            break
-        print(f"{color3}Input invalido, tente novamente!{colorEnd}")
-
-    if c==1:
-        numeroConvertido=bin(numero)
-        numeros["Numeros binarios"].append(numeroConvertido)
-        print("-="*5)
-        print(f"Segue numero convertido para binario: {numeroConvertido}")
-        print("-="*5)
-    elif c==2:
-        numeroConvertido=oct(numero)
-        numeros["Numeros octadecimais"].append(numeroConvertido)
-        print("-="*5)
-        print(f"Segue numero convertido para octadecimal: {numeroConvertido}")
-        print("-="*5)
-    elif c==3:
-        numeroConvertido=hex(numero)
-        numeros["Numeros hexadecimais"].append(numeroConvertido)
-        print("-="*5)
-        print(f"Segue numero convertido para hexadecimal: {numeroConvertido}")
-        print("-="*5)    
-
-    while True:    
-        c2=int(input(f"{color2}Deseja efetuar nova conversão?\n[1]Converter numero para outra base\n[2]Escolher novo numero\n[3]Sair do programa\n {colorEnd}"))
-
-        if c2 in [1,2,3]:
-            break
-        print(f"{color3}Input invalido, tente novamente!{colorEnd}")
+    num = Numero que será convertido
+    conv = Base para a conversao: bin, oct, hex    
+    """
     
-    if c2==1:
-        continue
-    elif c2==2:
-        chave1=True   
-    elif c2==3:
-        print(f"{color3}Segue lista ordenada de numeros digitados e convertidos:")
-        print("Numeros inteiros: ",numeros["Numeros inteiros"])
-        print("Numeros binarios: ",numeros["Numeros binarios"])
-        print("Numeros octadecimais: ",numeros["Numeros octadecimais"])
-        print(f"Numeros hexadecimais: ",numeros["Numeros hexadecimais"])
-        print(f"{colorEnd}")
+    if base=='bin':
+        return bin(num)[2:]
+    elif base=='oct':
+        return oct(num)[2:]
+    elif base == 'hex':
+        return hex(num)[:2]
+    else:
+        return None
+
+#Greetings!
+cabecalho(cor("Bem vindo ao conversor de numeros da Prof(a) Alexa!",35))
+
+#Programa principal
+while True:   
+
+    #Tratamento de erro
+    while True:
+        try:            
+            #Solicitando um numero inteiro para o usuario
+            num=int(input("Insira um numero inteiro (Ex: 6): "))
+            break
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos!",31))
+        except KeyboardInterrupt:
+            print(cor("\nO usuario cancelou o programa",34))
+
+    #Tratamento de erro
+    while True:    
+        try:
+            #Menu de escolhas para a conversão
+            c=int(input(cor(f"\nDeseja converter o numero '{num}' para:\n[1] Binario\n[2] Octal\n[3] Hexadecimal\nInsira sua escolha: ")))
+            
+            if c > 3:
+                print(cor("Escolha invalida!",31))
+            else:
+                break
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos para a escolha de conversão!",31))
+        except KeyboardInterrupt:
+            print(cor("\nO usuario cancelou o programa",34))            
+        
+    #Cada numero inserido pelo usuario como escolha, ira receber a base para conversão
+    choice={1:'bin',
+            2:'oct',
+            3:'hex'}
+    
+    #Base irá receber o valor escolhido acima
+    base = choice[c]    
+    
+    #Convertendo e imprimindo o valor inserido de acordo com a escolha de base acima
+    numero_convertido = conversor_numero(num,base)
+    cabecalho(cor(f"O numero '{num}' convertido para '{base}' é igual a '{numero_convertido}'.",35),cent=0,quantC=50)
+
+    #Continuar ou não o programa
+    c2=str(input("\nDeseja continuar? [S/N]")).upper()
+
+    if c2 == "N":
+        print(cor("\nObrigado e volte sempre!",35))
         break
-
-    

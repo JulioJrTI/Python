@@ -111,3 +111,21 @@ def ano_bissexto(ano=0):
             print(cor("\nO ano não é bissexto",31))
     else:
         print(cor("\nO ano não é bissexto",31))
+        
+#Função que irá converter um valor inserido como parametro para bi, octa e hex tbm inserido como parametro
+def conversor_numero(num,base):
+    """
+    Função simples que irá converter um valor numerico (inserido como primeiro parametro) para a base escolhida (bi, oct, hex) no segundo parametro.
+    
+    num = Numero que será convertido
+    conv = Base para a conversao: bin, oct, hex    
+    """
+    
+    if base=='bin':
+        return bin(num)[2:]
+    elif base=='oct':
+        return oct(num)[2:]
+    elif base == 'hex':
+        return hex(num)[:2]
+    else:
+        return None
