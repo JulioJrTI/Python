@@ -129,3 +129,45 @@ def conversor_numero(num,base):
         return hex(num)[:2]
     else:
         return None
+    
+#Criando uma função que irá comparar numeros de acordo com a quantidade inserida como parametro
+def maior_menor(quant=2):
+    """
+    Função que irá comparar numeros (quantidade de numeros inserida como parametro) e no final irá dizer qual foi o maior e menor numero digitado
+    
+    quant = Quantidade de numeros a serem comparados    
+    
+    """    
+    
+    #Armazenando o maior e menor numero em variaveis
+    maior=float('inf')
+    menor=float('-inf')
+
+    #Solicitando numeros (de acordo com o valor em parametro) ao usuario
+    for n in range(quant):        
+        #Tratamento de erros
+        while True:
+            try:
+                num=int(input(f"Digite o {n+1}º numero: "))
+                break
+            except ValueError:
+                print(cor("Erro! Digite somente valores numericos!",31))
+            except KeyboardInterrupt:
+                print("\nO usuario cancelou o programa...")
+        
+        #Efetuando a comparação dos numeros digitados acima
+        if n==0:
+            maior=num
+            menor=num
+        else:
+            if num > maior:
+                maior=num
+            if num < menor:
+                menor=num
+
+    #Imprimindo os resultados
+    if maior==menor:
+        print(cor(f"\nNão existe valor maior, os {quant} numeros são iguais",35))
+    else:
+        print(cor(f"\nMaior: {maior}",31))
+        print(cor(f"Menor: {menor}",34))
