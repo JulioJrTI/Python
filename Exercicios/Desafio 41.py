@@ -1,57 +1,51 @@
 """Desafio 41: A Confederação Nacional de Natação precisa de um programa que leia o ano de nascimento de um atleta e mostre sua categoria, de acordo com a idade:
-
 -Até 9 anos: Mirim
-
 -Até 14 anos: Infantil
-
 -Até 19 anos: Junior
-
 -Até 20 anos: Sênior
-
 -Acima: Master"""
 
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
+
+#Trabalhando com datas (ano atual, nascimento, idade)
 from datetime import date
 
-color1="\033[1;32m"
-color2="\033[1;33m]"
-colorEnd="\033[m"
+#Ano Atual
+ano_Atual = date.today().year
 
-anoAtual=date.today().year
+#Cadastrando todas as informações dos atletas em um dicionario
+atletas = {"Nome":[],"Ano de nascimento":[],"Idade":[],"Categoria":[]}
 
-atleta={"Nome do atleta":[],"Idade":[],"Ranking":[]}
-print(f"{color1}Bem vindo as olimpiadas de natação da Alexa!{colorEnd}")
-while True:
-    nome=input("Digite o nome do atleta: ")
-    atleta["Nome do atleta"].append(nome)
+#Greetings
+print("Bem vindo a Confederação Nacional de Natação!")
 
-    anoNascimento=int(input("Em qual ano vc nasceu: "))
-    idade=anoAtual-anoNascimento
-    atleta["Idade"].append(idade)    
+#Nome do atleta
+nome_atleta = str(input("Digite o nome do atleta: "))
+atletas["Nome"].append(nome_atleta)
 
-    if idade <=9:
-        ranking="Mirim"        
-    elif idade <=14:
-        ranking="Infantil"        
-    elif idade <=19:
-        ranking="Junior"        
-    elif idade==20:
-        ranking="Senior"        
-    else:
-        ranking="Master"        
-    atleta["Ranking"].append(ranking) 
-    
-    print("Ranking: ",ranking)    
-    
-    c = str(input("Deseja continuar? [S/N]"))
+#Solicitando o ano de nascimento do atleta
+ano_Nascimento = int(input(f"Digite o ano de nascimento do(a) atleta {nome_atleta}: "))
+atletas["Ano de nascimento"].append(ano_Nascimento)
 
-    if c in "Nn":
-        break
-print()
-print(f"{color1}Lista de atletas:{colorEnd}")
-for i in range(len(atleta["Nome do atleta"])):
-    print(f"Nome do atleta: {atleta['Nome do atleta'][i]}")
-    print(f"Idade: {atleta['Idade'][i]}")
-    print(f"Ranking: {atleta['Ranking'][i]}")
-    print("-="*10)
+#Idade do atleta
+idade = (ano_Atual-ano_Nascimento)
+print(f"O(a) atleta {nome_atleta}, possui {idade} anos de idade.")
+atletas["Idade"].append(idade)
 
+#Verificando a categoria do atleta
+if idade <= 9:
+    categoria = "Mirim"
+elif idade <= 14:
+    categoria = "Infantil"
+elif idade <= 19:
+    categoria = "Junior"
+elif idade <= 20:
+    categoria = "Senior"
+else:
+    categoria = "Master"
 
+#Imprimindo a categoria    
+print(f"A categoria do atleta {nome_atleta} é {categoria}!")
+atletas["Categoria"].append(categoria)
