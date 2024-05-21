@@ -170,4 +170,20 @@ def maior_menor(quant=2):
         print(cor(f"\nNão existe valor maior, os {quant} numeros são iguais",35))
     else:
         print(cor(f"\nMaior: {maior}",31))
-        print(cor(f"Menor: {menor}",34))
+        print(cor(f"Menor: {menor}",34))        
+        
+#Função que irá calcular as retas de um triangulo e informar se podemos ou não formar um triangulo
+def retas_triangulo(r1,r2,r3):
+    """
+    Iremos calcular se as retas inseridas como parametros podem ou não formar um triangulo
+    Paramentros: r1,r2 e r3 (valores numericos float)
+    
+    """   
+    
+    #Calculando se as retas acima podem ou não formar um triangulo
+    if (r1+r2) > r3 and (r2+r3) > r1 and (r3+r1) > r2:
+        print(cor("\nPode formar um triangulo "),end="")
+        return True        
+    else:
+        print(cor("\nNão pode formar um triangulo!",31))
+        return False        

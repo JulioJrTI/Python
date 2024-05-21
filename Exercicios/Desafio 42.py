@@ -1,46 +1,60 @@
 """Desafio 42: Refaça o DESAFIO 35 dos triangulos, acrescentando o recurso de mostrar que tipo de triangulo será formado:
-
 -Equlaterio: Todos os lados iguais
-
 -Isosceles: Dois lados iguais
+-Escaleno: Todos os lados diferentes
 
--Escaleno: Todos os lados diferentes"""
+Desafio 35: Desenvolva um programa que leia o comprimento de três retas e diga ao usuário se elas podem ou não formar um triangulo.
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-color3="\033[1;34m"
-color4="\033[1;31m"
-colorEnd="\033[m"
-enfeite="=-"*10
+"""
 
-print(f"{color1}Bem vindo ao calculador de triangulos 2.0 da Alexa!{colorEnd}")
+#Limpando o terminal a cada execução do programa
+from os import system
+
+#Usando modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
+
+#Chamando da função que irá calcular as retas de um triangulo
+from Modulos.matematica import retas_triangulo
+
+system("cls")
+
+#Greetings!
+cabecalho(cor("Bem vindo ao calculador de triangulos da Prof(a) Alexa!",35))
+
+#Programa principal
 while True:
-    numeros=[]
-    for n in range(3):
-        n=float(input(f"Digite o {n+1} numero: "))
-        numeros.append(n)    
     
-    triangulo={"Numeros":numeros}
+    #Adicionando as retas a uma lista temporaria
+    retas=[]
 
-    if triangulo["Numeros"][0] < triangulo["Numeros"][1] + triangulo["Numeros"][2] and \
-            triangulo["Numeros"][1] < triangulo["Numeros"][0] + triangulo["Numeros"][2] and \
-            triangulo["Numeros"][2] < triangulo["Numeros"][0] + triangulo["Numeros"][1]:
-        print(enfeite)
-        print("Pode formar um triangulo!")
-        if triangulo["Numeros"][0]==triangulo["Numeros"][1]==triangulo["Numeros"][2]:
-            print(f"{color1}Equlaterio, todos os lados são iguais.{colorEnd}")    
-        elif triangulo["Numeros"][0]!=triangulo["Numeros"][1]!=triangulo["Numeros"][2]:
-            print(f"{color3}Escaleno, todos os lados são diferentes.{colorEnd}")
+    #Solicitando retas de um triangulo ao usuario
+    for i in range(3):
+        while True:
+            try:
+                reta=float(input(f"Digite a {i+1}º reta: "))        
+                retas.append(reta)
+                break
+            except ValueError:
+                print(cor("\nErro! Digite somente valores numericos (Exemplo: 3.69)\n",31))
+            except KeyboardInterrupt:
+                print(cor("\nO usuario encerrou o programa..."))
+                quit()     
+            
+
+    #Imprimindo o tipo usando da função criada para calcularmos o triangulo
+    if retas_triangulo(retas[0],retas[1],retas[2]):
+        if retas[0]==retas[1]==retas[2]:
+            print(cor("Equalaterio!",34))
+        elif retas[0]==retas[1] or retas[0]==retas[2] or retas[1]==retas[2]:
+            print(cor("Isosceles!",33))
         else:
-            print(f"{color2}Isosceles, dois lados são iguais.{colorEnd}")
-        print(enfeite)
-    else:
-        print(f"{color4}Não pode formar um triangulo!{colorEnd}")
-
-    c=str(input("Deseje efetuar nova verificação? [S/N]"))
-
-    if c in "Ss":
-        triangulo["Numeros"].clear()    
-    if c in "Nn":
-        print(f"{color1}Obrigado e volte sempre!{colorEnd}")
+            print(cor("Escaleno!",35))
+            
+            
+    #Continuar ou não o programa
+    c = str(input("\nDeseja continuar? [S/N]")).upper()[0]
+    print()
+    
+    if c in "N":
+        print(cor("\nOBRIGADO E VOLTE SEMPRE!",35))
         break
