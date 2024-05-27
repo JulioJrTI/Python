@@ -1,68 +1,47 @@
 """Desafio 44: Elabore um programa que calcule o valor a ser pago por produto, considerando o seu preço normal e condição de pagamento:
-
 -A vista dinheiro/cheque: 10% de desconto.
-
 -A vista no cartão: 5% desconto.
-
 -Em até 2x no cartão: Preço normal.
-
 -3x ou mais no cartão: 20% de juros."""
 
-color1="\033[1;32m"
-colorRed="\033[1;31m"
-colorEnd="\033[m"
-enfeite="-="*10
+#Usando modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
 
-print(f"{color1}Bem vindo a loja da Alexa!{colorEnd}")
-while True:
-    produto=float(input("Digite o valor de seu produto: R$"))
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-    print("Como deseja efetuar o pagamento:")
-    c1=int(input(f"[1] A vista dinheiro/cheque com 10% de desconto\n"
-    "[2] A vista no cartão com 5% de desconto\n"
-    "[3] Em 2x no cartão, sem juros\n"
-    "[4] 3x ou mais no cartão com 20% de juros\n"))
+#Greetings
+cabecalho(cor("Bem vindo ao supermercado da Alexa!",35))
 
-    print(enfeite)
-    print(f"Valor do produto R${produto:.2f}")
-    if c1==1:
-        desconto=10
-        novoValor=produto-(produto*desconto/100)
-        print(f"Produto recebeu 10% de desconto")
-    if c1==2:
-        desconto=5
-        novoValor=produto-(produto*desconto/100)
-        print(f"Produto recebeu 5% de desconto")
-    if c1==3:
-        parcelas=2
-        novoValor=produto/parcelas
-        print(f"Produto será pago em 2x, valor das parcelas: R${novoValor:.2f}")
-    if c1==4:
-        while True:
-            parcelas=int(input(("Em quantas vezes deseja parcelar: ")))
-            if parcelas >=3:
-                break        
-            else:    
-                print(f"{colorRed}Está opção somente é valida para pagamentos superiores a 3x ou mais, tente novamente{colorEnd}")     
-        parcelasValor=produto/parcelas
-        novoValor=parcelasValor+(parcelasValor*20/100)
-        print(f"Produto será pago em {parcelas}x, valor das parcelas R${novoValor:.2f} com 20% de juros.")
+#Preço original do produto
+preco_produto = float(input("Digite o preço do produto: R$ "))
 
-    if c1==1 or c1==2:
-        print(f"Segue valor para pagamento: R${novoValor:.2f}")
-    print(enfeite)
+#Metodo de pagamento
+mp_lista=["[0] A vista dinheiro/cheque",
+    "[1] A vista no cartão",
+    "[2] Parcelado no cartão"]
+
+print(mp_lista)
+mp = int(input("Insira: "))
+
+#A vista dinheiro/cheque
+if mp == 0:
+    desconto = 10
+    preco_com_desconto = preco_produto-(preco_produto*10/100)
+
+#A vista no cartão
+if mp == 1:
+    desconto = 5
+    preco_com_desconto = preco_produto-(preco_produto*5/100)
     
-    c2=str(input("Deseja continuar: [S/N]"))
+if mp == 2:
+    quant_parcela = int(input("Quantas vezes deseja parcelar: "))
+    
+    if quant_parcela <= 2:
+        
 
-    if c2 in "Nn":
-        print(f"{color1}Obrigado e volte sempre!{colorEnd}")
-        break
-
-
-
-
-
-
-
-
-
+print(f"Opção escolhida: {mp_lista[mp][3:]}")
+print(f"Preço original do produto: R${preco_produto:.2f}")
+print(f"-{desconto}% desconto")
+print(f"A pagar: R${preco_com_desconto:.2f}")
