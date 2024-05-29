@@ -1,1 +1,2 @@
 #Treinamento Python
+print("teste")
