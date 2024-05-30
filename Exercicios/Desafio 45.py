@@ -1,46 +1,65 @@
 """Desafio 45: Crie um programa que faça o computador jogar Pedra/Papel/Tesoura com voce."""
 
-import random
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor
+
+#Efeito cosmetico de delay
 from time import sleep
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-color3="\033[1;33m"
-colorEnd="\033[m"
-enfeite="-="*10
+#A maquina irá sortear um numero aleatorio
+from random import randint
 
-items=["Pedra","Papel","Tesoura"]
-itemsNum={1:"Pedra",2:"Papel",3:"Tesoura"}
-loops=0
+#Limpando o terminal a cada execução do programa
+from os import system
+system("cls")
 
-print(f"{color1}Bem vindo ao game da Alexa!{colorEnd}")
+#Programa principal
 while True:
-    print("Faça sua escolha:")
-    playerNum=int(input("[1]Pedra, [2]Papel ou [3]Tesoura: "))
-    player=itemsNum.get(playerNum)
 
-    maquina=random.choice(items)
+    #Greetings!
+    cabecalho(cor("Bem vindo ao game de Rock/Paper/Scissors da Alexa!",35))
 
-    print(f"{color1}Player escolheu:",player)
-    sleep(1)
-    print(f"{color2}Maquina escolheu:",maquina)
+    #Opções para o jogador
+    opcoes=["[0] Pedra",
+            "[1] Papel",
+            "[2] Tesoura"]
 
-    print(enfeite)
-    if player==maquina:
-        print(f"{color3}Empate{colorEnd}")
-    elif (player=="Pedra" and maquina=="Tesoura") or (player=="Tesoura" and maquina=="Papel") or (player=="Papel" and maquina=="Pedra"):
-        print(f"{color1}Player venceu{colorEnd}")
-        sleep(1)
-        loops+=1
-    else:
-        print(f"{color2}Maquina venceu{colorEnd}")
-        sleep(1)
-        loops+=1
-    print(enfeite)
-    
-    if loops==5:
-        c=str(input("Deseja continuar? [S/N]"))
+    #Imprimindo as opções a serem escolhidas
+    for o in opcoes:
+        print(o)
 
-        if c in "Nn":
-            print(f"{color1}Obrigado e volte sempre!{colorEnd}")
+    #Escolha do Player
+    while True:
+        player=int(input("Insira sua escolha: "))
+        
+        if player <=2:
             break
+        else:
+            print(cor("\nEscolha incorreta! Escolha um valor numerico de 0 a 2!\n",35))        
+
+    #A maquina irá escolher um valor numerico de 0 a 2
+    cpu=randint(0,2)
+
+    #Imprimindo escolhas da maquina e player    
+    print(cor(f"\nJogador escolheu: {opcoes[player]}",34))
+    sleep(2)
+    print(cor(f"\nMaquina escolheu: {opcoes[cpu]}",31))
+    sleep(2)
+
+    #Condições de vitoria e derrota
+    if player==0 and cpu==2 or player==1 and cpu==0 or player==2 and cpu==1:
+        print(cor("\nPlayer ganhou!",34))
+    elif player == cpu:
+        print(cor("\nEmpate!",33))
+    else:
+        print(cor("\nMaquina ganhou!",31))
+        
+    #Continuar ou não o game
+    sleep(3)
+    c=str(input("\nDeseja continuar? [S/N]")).upper()[0]
+    
+    if c in "S":
+        system("cls")
+    else:
+        print(cor("\nOBRIGADA E VOLTE SEMPRE!",35))
+        break
