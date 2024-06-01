@@ -1,17 +1,46 @@
-"""Desafio 46: Faça um programa que mostre na tela uma contagem regressiva para o estouro de fogos de artificio, indo de 10 até 0, com uma pausa de 1 segundos entre eles."""
+"""Desafio 46: Faça um programa que mostre na tela uma contagem regressiva 
+para o estouro de fogos de artificio, indo de 10 até 0, com uma pausa de 1 segundos entre eles."""
 
-from time import sleep
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cor,cabecalho,emotes
+from Modulos.matematica import contador_reverso
+
+#Limpando o terminal
+from os import system
+system("cls")
+
+#Descobrindo o ano atual
 from datetime import date
 
-anoAtual=date.today().year
+#Ano atual
+ano_atual = date.today().year
 
-color="\033[1;32m"
-colorEnd="\033[m"
+#Greetings
+cabecalho(cor("Pronto para o ano novo?"))
 
-print(f"{color}Contagem regressiva para o ano novo!{colorEnd}")
-for n in range(10,0,-1):
-    color=f"\033[1;3{n}m"
-    print(color,n)
-    sleep(1)    
-print(colorEnd)
-print(f"{color}Feliz {anoAtual+1}!!!{colorEnd}")
+#Mensagem de erro
+msg_erro=cor("\nErro! Digite somente valores numericos\n",31)
+
+#Solicitando um numero inicial
+while True:
+    try:
+        num_inicio=int(input("Digite um valor numerico inicial: "))
+        break
+    except ValueError:
+        print(msg_erro)    
+        
+#Solicitando um numero final
+while True:
+    try:        
+        num_fim=int(input("Digite um valor numerico final: "))
+        break
+    except ValueError:
+        print(msg_erro)
+
+print()
+
+#Chamando a função de contador reverso
+contador_reverso(num_inicio,num_fim,1)
+
+#Mensagem que será exibida no final do contador
+print(cor(f"\nFeliz {ano_atual}{emotes(2)} !!!",35))

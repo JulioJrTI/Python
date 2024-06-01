@@ -1,6 +1,7 @@
 import math
 from Modulos.formatar import cabecalho,cor
 from tabulate import tabulate
+from time import sleep
 
 #Função que irá somar dois numeros e imprimir o resultado final
 def somarNumeros(n1=0,n2=0):
@@ -186,4 +187,18 @@ def retas_triangulo(r1,r2,r3):
         return True        
     else:
         print(cor("\nNão pode formar um triangulo!",31))
-        return False        
+        return False
+    
+#Função que irá conter um contador reverso
+def contador_reverso(n1=0,n2=0,delay=0.5):
+    
+    """
+    Contador reverso do segundo valor em parametro até o primeiro valor em parametro
+    Parametros: n1 (valor final), n2 (valor inicial), delay (efeito de pausa entre os numeros)
+    
+    """    
+    
+    #Loop FOR para o contador reverso
+    for i in range(n2,n1,-1):        
+        print(i)        
+        sleep(delay)       

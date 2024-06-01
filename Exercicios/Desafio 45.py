@@ -47,7 +47,7 @@ while True:
     sleep(2)
 
     #Condições de vitoria e derrota
-    if player==0 and cpu==2 or player==1 and cpu==0 or player==2 and cpu==1:
+    if (player==0 and cpu==2) or (player==1 and cpu==0) or (player==2 and cpu==1):
         print(cor("\nPlayer ganhou!",34))
     elif player == cpu:
         print(cor("\nEmpate!",33))
