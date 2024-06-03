@@ -97,6 +97,25 @@ def par_impar(num=0):
     else:
         return "Impar"
     
+#Função que irá imprimir numeros pares usando parametros como pontos de inicio e final
+def print_num_pares(n=0,f=0):
+    """
+    Calculando os numeros pares seguindo valores de inicio e fim (parametros)
+    Parametros: n=(numero inicial), f=(numero final)
+    
+    """
+    
+    #Calculando os numeros pares e os imprimindo
+    if f==0:
+        print(cor("Erro! Insire um valor final no segundo parametro!",31))
+    else:
+        #Imprimindo os numeros pares
+        print(cor(f"Numeros pares de {n} a {f}:",35).center(65))
+        for num in range(n,f+1):
+            if num%2==0:
+                print(num,end=" > ")
+        print("\b\b ") 
+    
 #Criando uma função que irá imprimir se o ano (inserido como parametro) é ou não bissexto
 def ano_bissexto(ano=0): 
     """
