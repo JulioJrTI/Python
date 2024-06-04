@@ -1,3 +1,5 @@
+from os import system,name
+
 #Função que irá colorizar um texto
 def cor(texto,num=32):
     """
@@ -100,3 +102,15 @@ def emotes(tipo=1):
     elif tipo == 3:
         return "😎"
     
+#Função que irá limpar o terminal de acordo com a versão do OS
+def limpar_terminal():
+    """
+    Limpando o terminal de acordo com o kernel do OS
+    
+    """    
+    #Se o sistema operacional for NT (Windows), iremos chamar o codigo 'cls'
+    if name == 'nt':
+        system("cls")
+    #Caso contrario (Linux, etc), iremos chamar o codigo 'clear'
+    else:
+        system("clear")    

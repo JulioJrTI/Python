@@ -1,12 +1,11 @@
 """Desafio 48: Faça um programa que calcule a soma entre todos os numeros impares 
 que são multiplos de tres e que se encontram no intervalo de 1 até 500."""
 
-#Limpando o terminal a cada execução do programa
-from os import system
-system("cls")
-
 #Usando de modulos para a formatação do programa
-from Modulos.formatar import cabecalho,cor
+from Modulos.formatar import cabecalho,cor,limpar_terminal
+
+#Limpando o terminal a cada execução do programa
+limpar_terminal()
 
 #Greetings!
 cabecalho(cor("Bem vindo ao somador de numeros impares da Prof(a) Alexa!",35))
