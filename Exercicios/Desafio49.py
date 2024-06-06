@@ -1,29 +1,40 @@
 """Desafio 49: Refaça o DESAFIO 09, mostrando a tabuada de um numero que o usuario escolher, só que agora utilizando um laço FOR."""
 
-color1="\033[1;32m"
-color2="\033[1;34m"
-color3="\033[1;31m"
-colorEnd="\033[m"
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import limpar_terminal,cabecalho,cor
 
-enfeite="-="*10
+#Limpando o terminal a cada execução do programa
+limpar_terminal()
 
-print(f"{color2}Bem vindo a tabuada da Alexa!")
+#Efeito cosmetico de delay
+from time import sleep
 
+#Greetings!
+cabecalho(cor("Bem vindo ao estudo de tabuada da Prof(a) Alexa!",35))
+
+#Programa principal
 while True:
-    numero=int(input(f"{color2}Digite um numero qualquer para sabermos sua tabuada: {colorEnd}"))
-    
-    print(enfeite)
-    print(f"{color2}Tabuada do {numero}:{colorEnd}")
-    for n in range(1,11):
-        tabuada=numero*n
-        print(f"{color1}{numero}x{n}={tabuada}{colorEnd}")
-    print(enfeite)    
 
+    #Solicitando um valor numerico para a tabuada
     while True:
-        c=str(input("Deseja continuar? [S/N]"))
-        if c in "Nn":
-            print(f"{color1}Obrigado e volte sempre!{colorEnd}")
-            quit()
-        if c in "Ss":
+        try:
+            num = int(input("\nDigite um valor numerico para o calculo da tabuada: "))
             break
-        print(f"{color3}Input errado, tente novamente!{colorEnd}")
+        except ValueError:
+            print(cor("\nErro! Digite valores numericos validos!\n",31))
+
+    #Usando loop FOR para o calculo da tabuada
+    print(cor(f"\nTabuada do {num}:"))
+    for n in range(1,11):
+        #Calculando resultado multiplicando o valor indicado pelo usuario multiplicado pelo valor do loop FOR
+        res = num*n
+        
+        #Imprimindo tabuada
+        print(cor(f"{num} x {n} = {res}",33))
+        
+    #Continuar ou não o programa
+    sleep(3)
+    c = str(input("\nDeseja continuar? [S/N]")).upper()    
+    if c in "Nn":
+        print(cor("\nOBRIGADO E VOLTE SEMPRE!\n",35))
+        break
