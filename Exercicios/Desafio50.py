@@ -1,27 +1,42 @@
 """Desafio 50: Desenvolva um programa que leia seis numeros inteiros e mostre a soma apenas daqueles que forem pares. Se o valor digitado for impar, desconsidere-o."""
 
-color1="\033[1;32m"
-color2="\033[1;33m"
-colorRed="\033[1;31m"
-colorEnd="\033[m"
+# Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor,limpar_terminal
 
-numeros={"Numeros Pares":[],"Numeros Impares":[]} #Iremos armazenar os numeros pares e impares em listas dentro de um dicionario
+# Limpando o terminal a cada execução do programa
+limpar_terminal()
 
-print(f"{color1}Bem vindo ao programa identificador de pares e impares da Alexa!{colorEnd}")
-for n in range(0,6): #Pedindo 6 numeros, de 0 a 5
-    while True: #Mecanica de erro    
-        try: #Se qualquer valor digitado não for um integer, ele irá exibir uma mensagem de erro
-            num=int(input(f"Digite o {n+1}º numero: "))        
-            break
-        except:
-            print(f"{colorRed}Input errado, por favor digite uma int{colorEnd}")
+# Greetings
+cabecalho(cor("Bem vindo ao somador de numeros pares da Prof(a) Alexa!",35))
+
+# Lista contendo somente numeros pares
+numeros_Pares=[]
+
+# Solicitando 6 numeros inteiros
+for n in range(6):
     
-    if num%2==0: #Numeros pares serão armazenados em uma lista dentro de um dicionario
-        numeros["Numeros Pares"].append(num)  
-    else: #Numeros impares serão armazenados em uma lista dentro de um dicionario
-        numeros["Numeros Impares"].append(num)
+    while True:
+        try:    
+            num = int(input(f"Digite o {n+1}º numero: "))
+            break
+        except ValueError:
+            print(cor("ERRO! DIGITE SOMENTE VALORES NUMERICOS!\n",31)) 
+    
+    # Se o valor inserido acima for um numero par iremos adicionar a lista, 
+    # caso contrario será desconsiderado, o mesmo vale se digitarmos um numero repetido
+    if (num%2==0 and num!=0) and num not in numeros_Pares:
+        numeros_Pares.append(num)    
 
-print("-="*10)    
-for k,v in numeros.items(): #Exibindo keys e valores usando loop FOR
-    print(f"{k}: {v}")
-print(f"{color2}<<< Volte sempre! >>>{colorEnd}")
+# Somando numeros pares inseridos na lista
+soma=sum(numeros_Pares)
+
+# Organizando os numeros da lista em ordem crescente
+numeros_Pares.sort()
+
+# Imprimindo numeros pares digitados e a soma dos mesmos
+if len(numeros_Pares) > 0:    
+    print(cor("\nNumeros pares e sua soma:",33))       
+    print(" > ".join(map(str,numeros_Pares)) + f" = {soma}")
+else:
+    print(cor("Não foram digitados numeros pares!",35))
+print()
