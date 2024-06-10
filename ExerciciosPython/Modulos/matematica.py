@@ -246,4 +246,21 @@ def contador_reverso(n1=0,n2=0,delay=0.5):
     #Loop FOR para o contador reverso
     for i in range(n2,n1,-1):        
         print(i)        
-        sleep(delay)       
+        sleep(delay)
+        
+#Criando uma função que irá efetuar o calculo de PA
+def calcular_pa(num=0, razao=0, quant=0):
+    """
+    Iremos calcular e imprimir a progressão aritimetica seguindo os parametros abaixo:
+    num (Numero inicial), razao (De quanto em quanto iremos pular), quant (Quantidade de numeros a serem impressos) 
+    
+    """        
+
+    if quant <=0:
+        print(cor("Insira no 3º parametro a quantidade de numeros a serem impressos!",31))
+    else:
+        print(f"\nSegue {quant} termos de uma Progressão Aritmetica:")
+        for n in range(quant):
+            pa = num + n * razao
+            print(f"{pa} > ",end="")
+        print(cor("FIM"))       
