@@ -264,3 +264,28 @@ def calcular_pa(num=0, razao=0, quant=0):
             pa = num + n * razao
             print(f"{pa} > ",end="")
         print(cor("FIM"))       
+        
+#Função que irá identificar se um numero é ou não um numero PRIMO
+def indetificar_numPrimo(num=0):
+    """
+    Função que irá identificar se um numero (parametro) é ou não um numero PRIMO
+    
+    """
+    
+    msg_true = cor(f"O numero {num} é um numero PRIMO!",34)
+    msg_false = cor(f"O numero {num} não é um numero PRIMO!",31)
+    
+    if num < 2:
+        return msg_false
+    if num == 2:
+        return msg_true
+    if num%2==0:
+        return msg_false
+
+    raiz = int(math.sqrt(num))
+
+    for i in range(3,raiz+1,2):
+        if num%i==0:
+            return msg_false
+    
+    return msg_true

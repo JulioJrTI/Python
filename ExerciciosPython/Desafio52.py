@@ -1,57 +1,61 @@
 """Desafio 52: Faça um programa que leia um numero inteiro e diga se ele é ou não um numero primo."""
 
-color1="\033[1;32m"
-color2="\033[1;31m"
-colorEnd="\033[m"
+import math
 
-numeros={"Numeros divisiveis":[],"Numeros não divisiveis":[]} #Iremos armazenar os numeros divisiveis e não divisiveis em duas listas no dicionario
+from time import sleep
+#Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor,limpar_terminal
 
-print(f"{color1}Bem vindo ao calculador de numeros primos da Alexa!{colorEnd}")
+#Função que irá identificar se um numero é ou não um numero PRIMO
+def indetificar_numPrimo(num=0):
+    """
+    Função que irá identificar se um numero (parametro) é ou não um numero PRIMO
+    
+    """
+    
+    msg_true = cor(f"O numero {num} é um numero PRIMO!",34)
+    msg_false = cor(f"O numero {num} não é um numero PRIMO!",31)
+    
+    if num < 2:
+        return msg_false
+    if num == 2:
+        return msg_true
+    if num%2==0:
+        return msg_false
+
+    raiz = int(math.sqrt(num))
+
+    for i in range(3,raiz+1,2):
+        if num%i==0:
+            return msg_false
+    
+    return msg_true
+
+#Limpando o terminal
+limpar_terminal()
+
+#Greetings
+cabecalho(cor("Bem vindo ao identificador de numeros PRIMOS da prof(a) Alexa!",35))
+
+#Programa principal
 while True:
-    div=0 #Iremos saber se um numero é primo se a quantidade de numeros divisiveis por ele for exatamente 2.
-    while True: #Mecanica de erro, se qualquer valor alem de integer for digitado, iremos exibir uma mensagem de erro.
+
+    #Solicitando um numero qualquer para a identificação
+    while True:    
         try:
-            numero=int(input("Digite um numero: "))
+            num = int(input("Digite um numero: "))
             break
-        except:
-            print(f"{color2}Erro! Digite um numero.{colorEnd}")        
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos!\n",31))
+            sleep(1)
 
-
-    for n in range(1,numero+1): #Um loop FOR de 1 ao numero digitado pelo input+1
-        if numero%n==0: #Se o input for um valor divisivel pelos numeros do loop
-            print(f"{color1}{n}{colorEnd}",end=" > ")
-            numeros["Numeros divisiveis"].append(n) #Iremos armazenar somente os numeros divisiveis
-            div+=1 #E iremos aumentar em 1, todos os numeros que forem divisiveis
-        else:
-            print(f"{color2}{n}{colorEnd}",end=" > ") 
-            numeros["Numeros não divisiveis"].append(n) #Iremos armazenar somente os numeros não divisiveis  
-    print(f"{color1}Fim{colorEnd}")
-
-    print("-="*10)
-    if div==2:
-        print(f"{color1}O numero {numero} é primo.{colorEnd}") #Se a quantidade de numeros divisiveis pelo input for exatamente 2.
-    else:
-        print(f"{color2}O numero {numero} não é primo.{colorEnd}") #Se a quantidade de numeros divisiveis for inferior ou superior a 2, então o numero em input não é primo.
-
-    print("-="*10)
-    print(f"{color1}Numeros divisiveis por {numero}: {numeros['Numeros divisiveis']}{colorEnd}") #Exibindo a lista de numeros divisiveis
-    print(f"{color2}Numeros não divisiveis por {numero}: {numeros['Numeros não divisiveis']}{colorEnd}") #Exibindo a lista de numeros não divisiveis
-    print("-="*10)
-
-    while True: #Mecanica de erro, se qualquer valor alem de S ou N for digitado, iremos exibir uma mensagem de erro
-        try:
-            c=str(input("Deseja efetuar nova verificação? [S/N]")).upper()[0]
-            break
-        except:
-            print("Erro! Escolha S ou N")
-    if c in "S":
-        div==0 #Limpando a quantidade de numeros divisiveis
-        numeros["Numeros divisiveis"].clear() #Limpando as listas do dicionario
-        numeros["Numeros não divisiveis"].clear() #Limpando as listas do dicionario
-    if c in "N":
-        print(f"{color1}Obrigado e volte sempre!{colorEnd}")
+    #Imprimindo o resultado da função        
+    print(indetificar_numPrimo(num))
+    
+    #Continuar ou não o programa
+    c = str(input("\nDeseja continuar? [S/N]")).upper()
+    print()
+    
+    if c in "Nn":
+        print(cor("OBRIGADO E VOLTE SEMPRE!"))
         break
-
-
-
-
