@@ -1,46 +1,59 @@
 """Desafio 53: Crie um programa que leia uma frase qualquer e diga se ela é um palindromo, desconsiderando os espaços."""
 
-c1="\033[1;32m"
-c2="\033[1;31m"
-c3="\033[1;33m"
-cE="\033[m"
+# Usando de Modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor,limpar_terminal
 
-frasesDict={"Frases digitadas":[],"Frases invertidas":[],"Resultado":[]} #Iremos armazenar a frase ou palavra digitada, sua versão reversa e seu resultado.
+# Limpando o terminal a cada execução do programa
+limpar_terminal()
 
-print(f"{c1}Bem vindo ao analisador de palindromo da Alexa!{cE}")
-while True:     
-    while True: #Mecanica de erro
-        try:
-            frase=str(input("Digite uma palavra ou frase: "))            
-            break
-        except:
-            print(f"{c2}Erro, digite uma palavra ou frase!{cE}")
+# Usando JSON para o carregamento a armazenamento de informações
+import json
+
+# Carregando ou criando novo arquivo JSON
+try:
+    with open('dados_ex53.json', 'r') as arquivo:
+        palindromo = json.load(arquivo)
+except FileNotFoundError:
+    print("Arquivo não encontrado, criando um novo!")
+    # Lista contendo palindromos digitados
+    palindromo = []
+
+# Greetings!
+cabecalho(cor("Bem vindo ao analizador de palindromos da Prof(a) Alexa!",35))
+
+# Programa principal
+while True:
+    # Solicitando uma palavra ou frase ao usuario
+    frase=str(input("Digite uma frase ou palavra: "))
     
-    frasesDict["Frases digitadas"].append(f'{c1}{frase}{cE}') #Armazenando a frase digitada no dicionario
-    frasesDict["Frases invertidas"].append(f'{c3}{frase[::-1]}{cE}') #Armazenando sua versao reversa (com espaços e sem correcoes de formatacao) no dicionario
-    
-    fraseSemEspaco=frase.replace(" ","").upper() #Removendo os espacos e colocando todas as letras em maiu
-    fraseInvertida=fraseSemEspaco[::-1] #Invertendo a frase em maiu e sem espaco
+    # Removendo espaços e substituindo todas as letras por letras minusculas
+    frase_formatada = frase.lower().replace(" ","")
 
-    if fraseSemEspaco==fraseInvertida: #Se a frase sem espacos e maiu for a mesma que invertida, a frase ou palavra é um palindromo
-        print(f"{c1}A frase ou palavra '{frase}' é um palindromo.{cE}")
-        frasesDict["Resultado"].append(f"{c1}Palindromo{cE}") #Armazendo o resultado no dicionario
+    # Armazenando a frase/palavra digitada acima em uma variavel que irá inverter o sentido armazenado
+    frase_inv = frase_formatada[::-1]
+
+    # Verificando se a frase/palavra digitamente inicialmente tem o mesmo significado ao contrario
+    if frase_formatada==frase_inv:
+        print(cor(f"\nA frase ou palavra digitada é um palindromo!\n",32))        
+        if frase not in palindromo:        
+            palindromo.append(frase)
+            
+            # Salvado palavras/frases no arquivo JSON
+            with open('dados_ex53.json','w') as arquivo:
+                json.dump(palindromo,arquivo) 
+                   
     else:
-        print(f"{c2}A frase ou palavra {cE}{c1}'{frase}'{cE} {c2}não é um palindromo.{cE}")
-        frasesDict["Resultado"].append(f"{c2}Não é um palindromo{cE}") #Armazendo o resultado no dicionario
-
-    while True: #Mecanica de erro
-        try:
-            c=str(input("Deseja continuar? [S/N]")).upper()[0]
-            break
-        except:
-            print(f"{c2}Erro, escolha S ou N{cE}")
-    if c in "N":        
+        print(cor(f"\nA frase ou palavra digitada não é um palindromo!\n",31))
+        
+    # Continuar ou não o programa
+    c = str(input("Deseja continuar? [S/N]")).upper()
+    
+    # Saindo do programa
+    if c in "Nn":        
         break
 
-print("-="*10)
-print("Segue frases digitadas:")
-for i,v in enumerate(frasesDict["Frases digitadas"]): #Iremos exibir o index e valores das listas do dicionario na ordem em que foram digitadas
-    print(f"{i+1}: {v} - {frasesDict['Frases invertidas'][i]} - {frasesDict['Resultado'][i]}")
-print("-="*10)
-print(f"{c1}Obrigado e volte sempre!{cE}")
+# Imprimindo lista completa de palindromos digitados
+print(cor("\nSegue lista de palindromos digitados:",34))
+for i, v in enumerate(palindromo):
+    print(f"{i+1}: {v}")
+print(cor("\nOBRIGADO E VOLTE SEMPRE!",35))
