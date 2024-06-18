@@ -1,56 +1,48 @@
 """Desafio 54: Crie um programa que leia o ano de nascimento de sete pessoas, No final, mostre quantas pessoas ainda não atingiram a maioridade e quantas já são maiores."""
 
-from datetime import datetime
+# Usando biblioteca datetime para o calculo da idade
+from datetime import date
 
-c1="\033[1;32m"
-c2="\033[1;33m"
-c0="\033[m"
+# Usando modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor,limpar_terminal
 
-anoAtual=datetime.today().year
+# Limpando o terminal a cada execução do programa
+limpar_terminal()
 
-dezoitoMais=0 #Iremos armazenar a quantidade de pessoas com mais de 18 anos
-dezoitoMenos=0 #Iremos armazenar a quantidade de pessoas com menos de 18 anos
+# Quantidade de pessoas com idade superior e inferior a dezoito irão ser cadastradas em variaveis
+adulto = 0
+nao_adulto = 0
 
-pessoas={"Nome":[],"Idade":[],"Status":[]} #Iremos armazenar todas as informações das pessoas no dicionario
+# Greetings!
+cabecalho(cor('Bem vindo ao calculador de idade da Prof(a) Alexa!',35))
 
-print(f"{c1}Bem vindo a lista de pessoas da Alexa!{c0}")
-for p in range(7):
-    while True: #Mecanica de erro       
-        nomePessoa=str(input(f"Digite seu nome: "))        
-        if nomePessoa.isalpha(): #Se o valor digitado acima for PALAVRAS, o programa irá continuar
-            break
-        else: #Caso contrario, erro.
-            print("ERRO! Digite seu nome.")
+# Solicitando e calculando a idade de sete pessoas
+for i in range(7):
     
-    pessoas["Nome"].append(nomePessoa)
-    
-    while True: #Mecanica de erro
+    # Solicitando o ano de nascimento do usuario
+    while True:
         try:
-            anoNascimento=int(input(f"Olá {c1}{nomePessoa}{c0}, Digite seu ano de nascimento: "))
+            anoNascimento = int(input(f'Pessoa Nº{i+1}: Digite seu ano de nascimento: '))
             break
-        except:
-            print("ERRO! Digite sua idade em numeros!")
+        except ValueError:
+            print(cor('\nERRO! Digite somente valores numericos para a idade (Exemplo: 1994)\n',31))
+
+    # Calculando a idade
+    idade = (date.today().year) - anoNascimento
     
-    idade=anoAtual-anoNascimento #Iremos saber a idade do usuario ao subtrair o ano atual - o ano de nascimento
-    pessoas["Idade"].append(idade)
+    print(cor(f'Vc tem {idade} anos de idade.\n',33))
+    
+    if idade >= 18:        
+        adulto+=1
+    else:        
+        nao_adulto+=1        
 
-    print("-="*10)
-
-    if idade >=18:
-        dezoitoMais+=1
-        pessoas["Status"].append(f"{c1}Maioridade{c0}")
+# Resumo da idade das pessoas cadastradas
+if adulto > 0:
+    print(f'Foram identificados {adulto} pessoas com idade maior ou igual a dezoito',end="")
+    if nao_adulto > 0:
+        print(f' e {nao_adulto} pessoas com idade inferior a dezoito.')
     else:
-        dezoitoMenos+=1
-        pessoas["Status"].append(f"{c2}Menoridade{c0}")
-
-print(f"{c1}Temos {dezoitoMais} pessoas maiores de 18.{c0}")
-print(f"{c2}Temos {dezoitoMenos} pessoas com idade inferior a 18.{c0}")
-print("-="*10)
-
-print("Lista de pessoas:")
-for i in range(len(pessoas['Nome'])):
-    print(f"Nome: {pessoas['Nome'][i]}")
-    print(f"Idade: {pessoas['Idade'][i]}")
-    print(f"Status: {pessoas['Status'][i]}")
-    print("-="*10)
-print(f"{c1}<<<< FIM >>>>{c0}")
+        print('\nNão foram identificados pessoas com idade inferior a dezoito')
+else:
+    print('Não foram identificandos pessoas com idade superior ou igual a dezoito')
