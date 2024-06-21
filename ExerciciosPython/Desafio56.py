@@ -1,99 +1,72 @@
 """Desafio 56: Desenvolva um programa que leia o nome, idade e sexo de 4 pessoas. No final do programa, mostre:
-
 - A media de idade do grupo.
-
 - Qual é o nome do homem mais velho.
-
 - Quantas mulheres tem menos de 20 anos."""
 
-c1="\033[1;32m"
-c2="\033[1;31m"
-c0="\033[m"
+# Usando de modulos para a formatação do programa
+from Modulos.formatar import cabecalho,cor,limpar_terminal
 
-pessoas={'Nome':[],'Idade':[],'Sexo':[]} #Iremos armazenar as informações em um dicionario.
+# Iremos calcular a idade da pessoa com o ano de nascimento da mesma
+from datetime import date
 
-homemMaisVelhoNome=[] #Iremos armazenar o nome do homem mais velho em uma lista.
-homemMaisVelho=0 #Iremos armazenar a idade do homem mais velho em uma variavel.
+# Cadastrando as pessoas em um dicionario
+cadastroPessoas = {"Nome":[],"Sexo":[],"Idade":[]}
 
-mulheresMenosVinteNome=[] #Iremos armazenar os nomes das mulheres com idade inferior a 20 anos em uma lista.
-mulheresMenosVinte=0 #Iremos armazenar a quantidade de mulheres com idade inferior a 20 anos em uma variavel.
+# Limpando o terminal a cada execução do programa
+limpar_terminal()
 
-print(f"{c1}Bem vindo ao cadastrador de pessoas da Alexa!{c0}")
-for p in range(4):
-    while True: #Mecanica de erro            
-        nome=str(input('Digite seu nome: '))
-        pessoas['Nome'].append(nome) #Armazenando o nome do usuario em um dicionario.
-        if nome.isalpha(): #Se o valor digitado no input for PALAVRAS ou LETRAS.
-             break #O programa irá continuar.
-        else: #Caso contrario, iremos exibir uma mensagem de erro.        
-            print(f"{c2}Erro! Digite somente seu nome.{c0}")
+# Greetings!
+cabecalho(cor('Bem vindo ao cadastrador de pessoas da Prof(a) Alexa!',35))
+
+# Solicitando os dados de quatro pessoas
+for i in range(4):
+    print(cor(f"{i+1}º pessoa:",33))
     
-    while True: #Mecanica de erro
-        try: #Se o valor em input for diferente de numeros, iremos exibir uma mensangem de erro.
-            idade=int(input(f'Olá {c1}{nome}{c0}, digite sua idade: '))
-            pessoas['Idade'].append(idade) #Armazenando a idade do usuario em um dicionario.
-            break
-        except:
-            print(f"{c2}Erro! Digite sua idade em numeros.{c0}")
+    # Cadastrando o nome da pessoa no dicionario
+    pessoaNome = str(input("Digite seu nome: "))
+    cadastroPessoas["Nome"].append(pessoaNome)
     
-    while True: #Mecanica de erro        
-        sexo=str(input('Digite seu sexo: [M/F]')).upper()[0]
-        pessoas['Sexo'].append(sexo) #Armazenando o sexo do usuario em um dicionario.
-        if sexo in ["M","F"]: #Se o valor input for M ou F.
-            break #O programa irá continuar.
-        else: #Caso contrario iremos exibir uma mensagem de erro.      
-            print(f"{c2}Erro! Digite somente M ou F.{c0}")
-    
-    print("-="*10)
+    # Cadastrando a idade da pessoa no dicionario
+    anoNascimento = int(input("Digite seu ano de nascimento: "))
+    idade = (date.today().year) - anoNascimento
+    cadastroPessoas["Idade"].append(idade)
+        
+    #Cadastrando o sexo da pessoa no dicionario
+    sexo = str(input("Digite seu sexo (M-F): ")).upper()
+    cadastroPessoas["Sexo"].append(sexo)
 
-    if sexo=="M": #Se o usuario for um homem
-        if p==0: 
-            homemMaisVelho=idade
-            homemMaisVelhoNome=nome
-        else:
-            if idade>homemMaisVelho:
-                homemMaisVelho=idade
-                homemMaisVelhoNome=nome
+print() 
 
-    if sexo=="F": #Se o usuario for uma mulher
-        if idade<=20:
-            mulheresMenosVinte+=1 #Iremmos armazenar a quantidade de mulheres com idade inferior ou igual a 20
-            mulheresMenosVinteNome.append(nome) #E tambem seus nomes
+# Resumo geral  
+cabecalho("Resumo:")
 
-#Iremos saber a media de idade das pessoas cadastradas
-totalPessoas=len(pessoas['Idade']) #Iremos pegar a quantidade de valores inseridos no dicionario
-somaIdades=sum(pessoas['Idade']) #Iremos somar esses valores
-media=somaIdades/totalPessoas #E iremos dividir essas variaveis
+# Media de idade
+idades = cadastroPessoas["Idade"]
+soma_idades = sum(idades)
+quant_pessoas = len(idades)
+media = (soma_idades / quant_pessoas)
+print(cor(f"\nA media de idade do grupo é de {media} anos.",33))
 
-print(f'A media de idade do grupo é de {media} anos.')
-print("-="*10)
-
-if homemMaisVelho!=0: #Se existir um homem no dicionario, iremos exibir as seguintes informações
-    print(f'A idade do homem mais velho é de {homemMaisVelho} anos e seu nome é {homemMaisVelhoNome}.')
+# Homem mais velho
+homem_mais_velho_nome = ""
+homem_mais_velho_idade = 0
+for i in range(quant_pessoas):
+    if cadastroPessoas["Sexo"][i].upper() == 'M' and cadastroPessoas["Idade"][i] > homem_mais_velho_idade:
+        homem_mais_velho_idade =cadastroPessoas["Idade"][i]
+        homem_mais_velho_nome=cadastroPessoas["Nome"][i]
+if homem_mais_velho_nome:
+    print(cor(f"\nO homem mais velho é {homem_mais_velho_nome} com {homem_mais_velho_idade} anos.",34))
 else:
-    print("Não temos homens cadastrados na lista")
-
-print("-="*10)
-
-if mulheresMenosVinte!=0: #Se existir mulheres no dicionario e se suas idades forem igual ou abaixo de 20
-    print(f'Temos {mulheresMenosVinte} mulheres com idade inferior ou igual a 20: ',end="")
-    for i, p in enumerate(mulheresMenosVinteNome):
-        if i==len(mulheresMenosVinteNome)-1:
-            print(p,end=". ")
-        elif i==len(mulheresMenosVinteNome)-2:
-            print(p,end=" e ")
-        else:
-            print(p,end=", ")
-    print()
+    print("\nNenhum homem cadastrado.")
+    
+# Mulheres com menos de 20 anos de idade
+mulheres_menos_20 = []
+for i in range(quant_pessoas):
+    if cadastroPessoas["Sexo"][i].upper() == 'F' and cadastroPessoas["Idade"][i] < 20:
+        mulheres_menos_20.append((cadastroPessoas["Nome"][i],cadastroPessoas["Idade"][i]))
+if mulheres_menos_20:
+    print(cor("\nMulheres com menos de 20 anos:",35))
+    for nome, idade in mulheres_menos_20:
+        print(f"{nome} com {idade} anos.")
 else:
-    print("Não temos mulheres cadastradas na lista, ou todas são maiores de 18 anos.")
-
-print("-="*10)
-
-print(f'{c1}Lista de pessoas cadastradas:{c0}')
-for i in range(len(pessoas['Sexo'])):
-    print(f"Nome: {pessoas['Nome'][i]}")
-    print(f"Idade: {pessoas['Idade'][i]}")
-    print(f"Sexo: {pessoas['Sexo'][i]}")
-    print('=-'*10)
-print("<<<< FIM >>>>")
+    print("\nNenhuma mulher com menos de 20 anos foi cadastrada.")
