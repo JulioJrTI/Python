@@ -23,17 +23,33 @@ for i in range(4):
     print(cor(f"{i+1}º pessoa:",33))
     
     # Cadastrando o nome da pessoa no dicionario
-    pessoaNome = str(input("Digite seu nome: "))
-    cadastroPessoas["Nome"].append(pessoaNome)
+    while True:
+        pessoaNome = str(input("Digite seu nome: "))        
+        if pessoaNome.isalpha():
+            cadastroPessoas["Nome"].append(pessoaNome)
+            break
+        else:
+            print(cor("Erro! Não digite valores alem de palavras!",31))    
     
-    # Cadastrando a idade da pessoa no dicionario
-    anoNascimento = int(input("Digite seu ano de nascimento: "))
-    idade = (date.today().year) - anoNascimento
-    cadastroPessoas["Idade"].append(idade)
+    # Cadastrando a idade da pessoa no dicionario    
+    while True:    
+        try:
+            anoNascimento = int(input("Digite seu ano de nascimento: "))
+            idade = (date.today().year) - anoNascimento
+            cadastroPessoas["Idade"].append(idade)
+            break
+        except ValueError:
+            print(cor("Erro! Digite somente valores numericos!",31))
         
     #Cadastrando o sexo da pessoa no dicionario
-    sexo = str(input("Digite seu sexo (M-F): ")).upper()
-    cadastroPessoas["Sexo"].append(sexo)
+    while True:
+        sexo = str(input("Digite seu sexo (M-F): "))[0].upper()
+        
+        if sexo in ["M","F"]:
+            cadastroPessoas["Sexo"].append(sexo)
+            break
+        else:
+            print(cor("Digite somente M (para Male) e F (para Female)!",31))
 
 print() 
 
@@ -52,8 +68,8 @@ homem_mais_velho_nome = ""
 homem_mais_velho_idade = 0
 for i in range(quant_pessoas):
     if cadastroPessoas["Sexo"][i].upper() == 'M' and cadastroPessoas["Idade"][i] > homem_mais_velho_idade:
-        homem_mais_velho_idade =cadastroPessoas["Idade"][i]
-        homem_mais_velho_nome=cadastroPessoas["Nome"][i]
+        homem_mais_velho_idade = cadastroPessoas["Idade"][i]
+        homem_mais_velho_nome = cadastroPessoas["Nome"][i]
 if homem_mais_velho_nome:
     print(cor(f"\nO homem mais velho é {homem_mais_velho_nome} com {homem_mais_velho_idade} anos.",34))
 else:
