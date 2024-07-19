@@ -1,3 +1,1 @@
 #Treinamento Python
-
-print('teste')
